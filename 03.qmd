@@ -1,0 +1,307 @@
+---
+title: "Método Evolutivo"
+subtitle: "*Benefícios e Despesas Indiretas*"
+author: "Luiz Droubi"
+institute: Academia da Engenharia de Avaliações
+date: last-modified
+date-format: long
+title-slide-attributes:
+  data-background-image: img/PPT_abertura.png
+  #data-background-size: contain
+  #data-background-opacity: "0.5"
+  data-footer: "<a href='http://www.valoristica.com.br'>http://www.valoristica.com.br</a>"
+include-after-body: add-custom-footer.html
+lang: pt
+format:
+  revealjs:
+    theme: [default, style.scss]
+    logo: img/logo.png
+    # theme: beige
+    # smaller: true
+    scrollable: true
+    incremental: true
+    transition: slide
+    background-transition: fade
+fontsize: 1.8em
+bibliography: references.bib
+brand: true
+toc: true
+toc-depth: 1
+footer: "VALORÍSTICA"
+slide-number: true
+---
+
+```{r}
+#| include: false
+library(kableExtra)
+library(appraiseR)
+library(sf)
+library(ggplot2)
+theme_set(theme_bw())
+library(ggpmisc)
+```
+
+# Introdução
+
+## Preço de Venda e BDI
+
+- Segundo @mattos2019 [p. 279]:
+  - Preço de venda de uma obra é igual à soma de três fatores:
+    - Custos
+    - Lucro
+    - Impostos
+
+- Os custos podem ser divididos entre custos diretos e indiretos
+  - Diretos: custos que incidem diretamente sobre o produto (obra), tais
+  como insumos, mão-de-obra e equipamentos;
+  - Indiretos: custos que não estão envolvidos diretamente com o produto (obra)
+    - Ex.: Salários de supervisores, engenheiros, canteiros de obras, 
+    administração central, etc.
+    
+## Preço de Venda e BDI
+
+- BDI:
+  - trata-se de um multiplicador aplicado sobre o **custo direto** de uma obra
+  para obtenção do seu preço de venda;
+  - Veremos que existem diversas formas para o cálculo do BDI;
+  - Não existe uma forma correta;
+  - Portanto, o importante é entender o que se passa!
+  
+## Cálculo do preço de venda
+
+- Exemplo: Em uma obra com custo de R$ 100.000,00 incidem impostos de 8% sobre o
+faturamento e o construtor almeja uma lucratividade de 12% sobre o faturamento.
+Calcule o preço de venda da obra!
+  - Solução:
+    - Custo de Construcão: $\text{CC} = \text{R\$ } 100.000,00$
+    - Lucro: $L = \text{CC}\cdot 0,12 = \text{R\$ } 100.000,00 \cdot 0,12 = \text{R\$ } 12.000,00$
+    - Impostos: $I =  \text{CC}\cdot 0,08 = \text{R\$ } 100.000,00 \cdot 0,08 = \text{R\$ } 8.000,00$
+    - Preço de Venda: $\text{PV} = \text{CC} + \text{L} + \text{I} = \text{R\$ } 120.000,00$
+  - Problema:
+    - Impostos: $8\% \cdot \text{R\$ } 120.000,00 = \text{R\$ } 9.600$
+    - Lucro: $\text{LO} = \text{R\$ } 120.000,00 - \text{R\$ } 100.000,00 - \text{R\$ } 9.600 = \text{R\$ } 10.400,00$
+    - Lucro passou a ser de apenas $8,67\%$ do faturamento!
+    
+## Cálculo correto do preço de venda
+    
+- O preço de venda deve ser devidamente calculado, em função dos custos, lucros
+almejados e impostos incidentes, através da equação abaixo:
+  - $$PV = \frac{\text{CC}}{1-i\%}$$
+    - $i\%$ é uma taxa que engloba impostos e lucro.
+  
+- Exemplo:
+  - $$\text{PV} = \frac{\text{R\$ }100.000,00}{1-(0,12 + 0,08)} = \frac{\text{R\$ }100.000,00}{0,80} = \text{R \$ } 125.000,00$$
+  - Impostos: $\text{R\$ } 125.000,00 \cdot 0,08 = \text{R\$ } 10.000,00$
+  - Lucro Operacional: $\text{LO} = \text{PV} - \text{CC} - \text{I} = \text{R\$ } 15.000,00 \;(12\%!)$
+  
+## Preço de Venda e BDI
+
+- Conforme @NBR13752 [p. 26] e @mattos2019 [p. 283]:
+  - $$\text{PV} = \text{CD}\cdot(1+\text{BDI%})$$
+    - $\text{CD}$ é o custo direto da obra;
+    - $\text{BDI%}$ é o percentual a ser aplicado sobre o custo da obra para a
+obtenção do preço de venda
+
+- Ou, de forma inversa:
+  - $$\text{BDI%} = \frac{\text{PV}}{\text{CD}} - 1$$
+  
+# Composição do BDI
+
+## Composição do BDI
+
+- Assim como não estão inclusos no CUB os custos com aquisição de elevadores,
+fundações especiais, etc.
+- Também não estão inclusos no CUB eventuais despesas financeiras, impostos, 
+benefícios (lucro) do construtor, etc.
+- Os custos extra-CUB, tais como aquisição de elevadores, são custo direto da
+obra e devem ser somados ao custo básico para a determinação do custo direto da
+obra
+- As despesas financeiras, impostos e outros custos indiretos devem integrar o
+BDI
+
+## Fórmula para o Preço de Venda
+
+- O PV pode ser calculado diretamente conforme a equação abaixo:
+
+  - $$\text{PV} = \frac{\text{CD} + \text{CI} + \text{AC} + \text{DF} + \text{IC}}{1-(\text{LO%} + \text{IMP%})}$$
+  
+- $\text{CI}$ é o custo indireto da obra;
+- $\text{AC}$ é uma verba calculada para o pagamento das despesas da 
+administração central da construtora;
+- $\text{DF}$ são as despesas financeiras;
+- $\text{IC}$ é uma verba que deve ser prevista para as contingências;
+- $\text{LO%}$ é um percentual que reflete o lucro operacional da construtora;
+- $\text{IMP%}$ é o percentual que reflete todos os impostos incidentes sobre o
+faturamento (IR não entra!)
+
+## Fórmula do BDI
+
+- O BDI pode ser calculado conforme a fórmula abaixo [@mattos2019, p. 291]:
+  - $$\text{BDI%} = \frac{(1+\text{CI})\cdot(1 + \text{AC} + \text{DF} + \text{IC})}{1-(\text{LO%} + \text{IMP%})} - 1$$
+  
+## Fórmula do BDI
+
+- A fórmula de @mattos2019 parace se referir exclusivamente às obras de
+empreitada.
+
+- @mozart [p. 7] apresentra fórmulas de BDI diferentes:
+  - Para empreitadas:
+    - $$\text{BDI (%)} = \frac{\text{preço} - \text{custo direto}}{\text{custo direto}}\times 100$$
+  - Para administração:
+    - $$\text{BDI (%)} = \frac{\text{preço} - \text{custo base}}{\text{custo base}}\times 100$$
+    
+- Custo base [@mozart, p. 156]:
+  - $$C_b = CD + A_L + \text{IC}$$
+  
+# Impostos
+  
+## Impostos
+
+- Muitos impostos incidem sobre a compra dos materiais (ICMS, ISS) e mão-de-obra
+(INSS, FGTS) e já estão orçados como custos diretos
+
+- Os impostos que incidem sobre o faturamento também devem ser computados:
+  - PIS (0,65% sobre o faturamento)
+  - COFINS (3% sobre o faturamento)
+  - ISSQN (depende do município e da atividade)
+  - IRPJ (depende do regime)
+  - CSLL (depende do regime)
+  
+- No entanto, IRPJ e CSLL são impostos diretos, que incidem sobre a empresa, e 
+não devem ser repassados ao contratante!
+
+## IRPJ e CSLL
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- IRPJ no Regime de Lucro Presumido:
+  - Alíquota de 15%
+  - Base de cálculo: 8% da receita bruta
+  - Ou seja, 1,2% do faturamento
+
+- CSLL no Regime de Lucro Presumido:
+  - Alíquota: 9%
+  - Base de cálculo: 12% da receita bruta
+  - Ou seja, 1,08% sobre o faturamento
+  
+:::
+
+::: {.column width="50%"}
+
+- IRPJ no Regime de Lucro Real:
+  - Alíquotas: 15% (até R$ 20.000) e 25% (o que exceder)
+  - Base de cálculo: Lucro real
+
+- CSLL no Regime de Lucro Real:
+  - Alíquota: 9%
+  - Base de cálculo: Lucro real até R$ 20.000,00
+  
+:::
+::::
+    
+## Lucro Líquido
+
+- Lucro líquido da construtora depende do regime tributário.
+
+- Exemplo:
+  - Regime de Lucro Real
+  - Lucro operacional: R$ 100.000,00
+  - IRPJ: 25%
+  - CSLL: 9%
+  
+- $\text{LL} = \text{LO}\cdot (1-\text{IRPJ} - \text{CSLL}) = \text{LO}\cdot (1 - 0,25 - 0,09) = 0,66\cdot \text{LO}$
+
+- $\text{LL} = 100.000 \cdot 0,66 = \text{R\$ } 66.000,00$
+  
+## Exercício
+
+- Uma obra tem custo direto orçado de R$ 2.582.000,00. Uma construtora estima
+que terá que arcar com um custo indireto de R$ 250.560,00 para conseguir
+executar esta obra. Além disso, ela estima que, para remunerar o seu escritório
+central, ela precisa de algo em torno de aproximadamente 4% do custo total da obra.
+Além disto, as despesas financeiras devem ser da ordem de 1,5%. Os impostos que
+incidem sobre o faturamento (PIS, COFINS e ISSQN) somam 6,65% e a lucrativadade
+almejada é de 8%, antes do IRPJ e CSLL! Calcule o valor do BDI!
+
+# Orçamentos de obras públicas
+
+- Existem particularidades nos orçamentos para obras públicas, que são 
+monitoradas pelo TCU e/ou outros tribunais dee contas estaduais ou municipais.
+
+- É importante conhecer alguns detalhes dos orçamentos para obras públicas afim
+de aplicar o BDI de forma correta
+
+- Ver @TCU2.
+
+## BDI para obras públicas
+
+- Existem diversas particularidades para o caso das obras públicas, entre eles:
+  - Incidência do Lucro sobre custo ou faturamento;
+  - Desoneração do BDI;
+  - Parâmetros pré-definidos.
+
+## Fórmula do BDI para obras públicas
+
+- Para o TCU, nas obras públicas o lucro deve incidir sobre o custo da obra, e 
+não sobre o faturamento!
+
+- Isto implica que o percentual de Lucro deve constar do numerador da equação
+do BDI, e não do denominador, como é usual:
+  - $$\text{BDI} = \frac{(1 + (\text{AC} + S + R + G))(1 + DF)(1+L)}{(1-I)}$$
+    - $S$ é uma taxa representativa dos seguros;
+    - $R$ é uma taxa que corresponde aos riscos;
+    - $G$ pe uma taxa que representa ônus das garantias exigidas no edital;
+  
+- Acórdão 2.622/2013 [@TCU]: estabelece parâmetros referenciais para diversos 
+tipos de obras públicas.
+
+## Desoneração do BDI
+
+- Trata-se de inserir alguns custos indiretos na planilha de preços unitários, 
+com o intuito de diminuição do BDI;
+  - Com BDI menor, diminui-se o impacto de eventuais aditivos
+  - Por exemplo: Administração Local
+
+. . . 
+
+  
+| OBRA/% AL                   |1º Quartil |Médio  |3º Quartil  | 
+|:----------------------------|----------:|------:|-----------:|
+| Edifícios                   | 3,49%     | 6,23% |  8,87%     |
+| Rodovias e Ferrovias        | 1,98%     | 6,99% | 10,68%     |
+| Água e Esgoto               | 4,13%     | 7,64% | 10,89%     |
+| Energia Elétrica            | 1,85%     | 5,05% | 7,45%      |
+| Obras portuárias            | 6,23%     | 7,48% | 9,09%      |
+Table: Percentual de Administração Local inserido no Custo Direto. Fonte: @TCU.
+
+
+# Outras considerações
+
+## Desoneração da folha de pagamento
+
+- Com a desoneração da folha de pagamento, em 2013, o INSS (20%) deixou de ser
+recolhido sobre os salários e criou-se a Contribuição Previdenciária sobre a 
+Receira Bruta (CPRB), com alíquota de 4,5% sobre o faturamento
+
+- Ou seja, diminuem os custos diretos da obra.
+  - Base de preços desoneradas:
+    - Por exemplo: SINAPI desonerado
+
+- Porém o BDI aumenta, pois a CPRB passa a fazer parte do BDI!
+
+## Reforma Tributária
+
+![Impostos a serem extintos pela reforma tributária](./img/Reforma_Tributaria.png)
+
+## Reforma Tributária 
+
+- Com a reforma tributária, os impostos passarão a ser do tipo *valor agregado*.
+  - Grosso modo: eles incidirão sobre os custos indiretos e sobre o lucro do
+  construtor (valor agregado), mas não sobre os custos diretos
+  - O cálculo do BDI deverá mudar!
+
+- Ver [link](https://www12.senado.leg.br/noticias/materias/2023/12/21/reforma-tributaria-promulgada-principais-mudancas-dependem-de-novas-leis)
+
+## Referências
+

@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="pt"><head>
+<script src="02_files/libs/clipboard/clipboard.min.js"></script>
+<script src="02_files/libs/quarto-html/tabby.min.js"></script>
+<script src="02_files/libs/quarto-html/popper.min.js"></script>
+<script src="02_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="02_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="02_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="02_files/libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.27">
+
+  <meta name="author" content="Luiz Droubi">
+  <title>Método Evolutivo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="02_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="02_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="02_files/libs/revealjs/dist/theme/quarto-edcff130eb01ac5e239e676278bbed8d.css">
+  <link href="02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="02_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="02_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="img/PPT_abertura.png" data-footer="<a href='http://www.valoristica.com.br'>http://www.valoristica.com.br</a>" class="quarto-title-block center">
+  <h1 class="title">Método Evolutivo</h1>
+  <p class="subtitle"><em>Depreciação</em></p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Luiz Droubi 
+</div>
+        <p class="quarto-title-affiliation">
+            Academia da Engenharia de Avaliações
+          </p>
+    </div>
+</div>
+
+  <p class="date">6 de dezembro de 2025</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Índice</h2>
+<ul>
+<li class="fragment"><a href="#/depreciação" id="/toc-depreciação">Depreciação</a></li>
+</ul>
+</nav>
+</section>
+<section>
+<section id="depreciação" class="title-slide slide level1 center">
+<h1>Depreciação</h1>
+
+</section>
+<section id="depreciação-conceitos-gerais" class="slide level2">
+<h2>Depreciação: conceitos gerais</h2>
+<ul>
+<li class="fragment"><p>Vida útil (<strong>VU</strong>) de um bem: período que docorre entre a data de conclusão da fabricação de um bem e o momento em que este bem torna-se obsoleto, devido aos crescentes custos de manutenção;</p></li>
+<li class="fragment"><p>Idade real (<span class="math inline">\(I_R\)</span>) de um bem: período decorrido entre a data em que o bem foi concluído e a data da avaliação;</p></li>
+<li class="fragment"><p>Vida remanescente: período restante de vida de um bem, entre a data de avaliação e o fim de sua vida útil;</p></li>
+<li class="fragment"><p>Valor residual (<span class="math inline">\(V_R\)</span>): é o valor da demolição ou de reaproveitamento de parte dos materiais no fim da vida útil do bem;</p></li>
+<li class="fragment"><p>Valor depreciável (<span class="math inline">\(V_d\)</span>): é a diferença entre o valor total e o valor residual de um bem;</p></li>
+<li class="fragment"><p>Idade aparente (<span class="math inline">\(I_A\)</span>): utilizada apenas no método do valor decrescente, por conta da subjetividade. É a idade atribuída ao bem pelo avaliador durante a vistoria;</p></li>
+<li class="fragment"><p>Coeficiente de Depreciação (<span class="math inline">\(K_d\)</span>): coeficiente calculado em função da vida útil, do valor residual, da idade e, eventualmente, do estado de conservação do bem.</p></li>
+</ul>
+</section>
+<section id="depreciação-conceitos-gerais-1" class="slide level2">
+<h2>Depreciação: conceitos gerais</h2>
+<ul>
+<li class="fragment"><p>Valor depreciado (<em>write-off</em>): é o valor depreciado em cada período;</p></li>
+<li class="fragment"><p>Valor base da depreciação: é o valor sobre o qual é aplicada a taxa de depreciação em cada período.</p>
+<ul>
+<li class="fragment">Pode ser fixo (depreciação linear, soma dos anos, Kuentzle, Ross)</li>
+<li class="fragment">Ou variável (valor decrescente, <em>double declining</em>)</li>
+</ul></li>
+<li class="fragment"><p>Taxa de depreciação (<span class="math inline">\(\%D\)</span>): é a razão entre o valor depreciado no período e o valor base da depreciação.</p>
+<ul>
+<li class="fragment">Pode ser constante ao longo da VU do bem (depreciação linear, <em>double declining</em>, valor decrescente);</li>
+<li class="fragment">Ou pode ser variável, mudando em função da idade do bem (soma dos anos, Kuntzle, Ross).</li>
+</ul></li>
+</ul>
+</section>
+<section id="taxa-de-depreciação" class="slide level2">
+<h2>Taxa de Depreciação</h2>
+<ul>
+<li class="fragment">Exemplo:
+<ul>
+<li class="fragment">Um caminhão foi adquirido por R$ 800.000,00 e tem valor residual de 10% (R$ 80.000,00). Calcular a taxa de depreciação linear do ativo por um período de 5 anos:
+<ul>
+<li class="fragment">Taxa de Depreciação: <span class="math inline">\((800.000-80.000)/5 = \text{R\$ } 144.000,00/\text{ano}\)</span></li>
+<li class="fragment">Ou: <span class="math inline">\(144.000/(800.000-80.000) = 20\% \text{ a.a.}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="métodos-de-depreciação" class="slide level2">
+<h2>Métodos de Depreciação</h2>
+<ul>
+<li class="fragment">Métodos mais simples, quando não é possível determinar o estado de conservação:
+<ul>
+<li class="fragment">Depreciação Linear</li>
+</ul></li>
+<li class="fragment">Métodos de depreciação acelerada:
+<ul>
+<li class="fragment">Valor Decrescente</li>
+<li class="fragment"><em>Double Declining</em></li>
+<li class="fragment">Soma dos anos</li>
+</ul></li>
+<li class="fragment">Método mais preciso, que leva em conta o estado de conservação:
+<ul>
+<li class="fragment">Ross-Heidecke</li>
+</ul></li>
+<li class="fragment">Outros métodos:
+<ul>
+<li class="fragment">Kuentzle</li>
+<li class="fragment">Ross</li>
+</ul></li>
+</ul>
+</section>
+<section id="para-entender-métodos-de-depreciação-acelerada" class="slide level2">
+<h2>Para entender: métodos de depreciação acelerada</h2>
+<ul>
+<li class="fragment"><p>Gastos com reparos e conservação de bens são dedutíveis na determinação do lucro real.</p></li>
+<li class="fragment"><p><a href="https://www.planalto.gov.br/ccivil_03/Leis/L9249.htm">Lei 9.249/1995</a>:</p>
+<ul>
+<li class="fragment">Art. 13. Para efeito de apuração do lucro real e da base de cálculo da contribuição social sobre o lucro líquido, são vedadas as seguintes deduções, independentemente do disposto no art. 47 da Lei nº 4.506, de 30 de novembro de 1964:</li>
+<li class="fragment">(…)</li>
+<li class="fragment">III - de despesas de <strong>depreciação</strong>, amortização, <strong>manutenção</strong>, <strong>reparo</strong>, <strong>conservação</strong>, impostos, taxas, seguros e quaisquer outros gastos com bens móveis ou <strong>imóveis</strong>, <strong>exceto se intrinsecamente relacionados com a produção ou comercialização dos bens e serviços</strong>;</li>
+<li class="fragment">(…)</li>
+</ul></li>
+</ul>
+</section>
+<section id="para-entender-métodos-de-depreciação-acelerada-1" class="slide level2">
+<h2>Para entender: métodos de depreciação acelerada</h2>
+<ul>
+<li class="fragment">Em suma:
+<ul>
+<li class="fragment">Nos primeiros anos, os bens não demandam grandes gastos com manutenção, reparos e conservação;
+<ul>
+<li class="fragment">Dessa maneira, não são muitos os gastos dedutíveis nesses primeiros anos de uso de bens móveis ou imóveis;</li>
+</ul></li>
+<li class="fragment">As despesas de depreciação, contudo, são dedutíveis;</li>
+<li class="fragment">Por isso é interessante a depreciação acelerada:
+<ul>
+<li class="fragment">É possível deduzir mais despesas de depreciação nos primeiros anos;</li>
+<li class="fragment">E nos anos finais de operação do bem, as despesas com manutenção, reparos e conservação predominam.</li>
+</ul></li>
+</ul></li>
+<li class="fragment">Eventualmente o governo, visando incentivar investimentos, pode utilizar a depreciação acelerada:
+<ul>
+<li class="fragment"><a href="https://g1.globo.com/politica/noticia/2024/05/28/lula-sanciona-lei-para-depreciacao-acelerada-de-maquinas-e-equipamentos-para-modernizacao-da-industria.ghtml">2024</a> e <a href="https://g1.globo.com/economia/noticia/2025/02/28/alckmin-lanca-nova-fase-de-programa-de-depreciacao-acelerada-para-a-industria.ghtml">2025</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-da-linha-reta" class="slide level2">
+<h2>Método da Linha Reta</h2>
+<ul>
+<li class="fragment">É o método da depreciação linear! <span class="math inline">\(K_d\)</span> é calculado através da <a href="#/eq-LinhaReta" class="quarto-xref">Equação&nbsp;1</a>:
+<ul>
+<li class="fragment"><span id="eq-LinhaReta"><span class="math display">\[K_d = P_R + PD \cdot \frac{VU-I_E}{VU} \qquad(1)\]</span></span>
+<ul>
+<li class="fragment"><span class="math inline">\(P_R\)</span>: Parcela Residual (%)</li>
+<li class="fragment"><span class="math inline">\(P_D\)</span>: Parcela Depreciável (%)</li>
+<li class="fragment"><span class="math inline">\(I_E\)</span>: Idade da Edificação</li>
+<li class="fragment"><span class="math inline">\(VU\)</span>: Vida útil</li>
+</ul></li>
+</ul></li>
+<li class="fragment">Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+<ul>
+<li class="fragment">Aos 15 anos de idade: <span class="math inline">\(K_d = 0,20 + 0,80\cdot [(60 - 15)/60] = 0,80\)</span></li>
+<li class="fragment">Aos 45 anos de idade: <span class="math inline">\(K_d = 0,20 + 0,80\cdot [(60 - 45)/60] = 0,40\)</span></li>
+<li class="fragment">Aos 60 anos de idade: <span class="math inline">\(K_d = 0,20\)</span></li>
+<li class="fragment">Taxa de depreciação: <span class="math inline">\(1/60 \approx 1,67\% \text{ a.a.}\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-da-linha-reta-1" class="slide level2">
+<h2>Método da Linha Reta</h2>
+<table class="caption-top">
+<caption>Vida útil de 5 anos e Valor Residual de 10%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">656.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">512.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">368.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">224.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">80.000,00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="método-do-valor-decrescente" class="slide level2">
+<h2>Método do Valor Decrescente</h2>
+<ul>
+<li class="fragment"><p>Também é usual efetuar a depreciação pelo método do valor descrescente, que deprecia o imóvel a uma taxa constante:</p>
+<ul>
+<li class="fragment"><span id="eq-DBM"><span class="math display">\[K_d= (1-r)^{I_A} \qquad(2)\]</span></span>
+<ul>
+<li class="fragment"><span class="math inline">\(r\)</span> é a razão da Depreciação (<span class="math inline">\(r = 1/V_u\)</span>)</li>
+<li class="fragment"><span class="math inline">\(I_A\)</span> é a idade aparente</li>
+</ul></li>
+</ul></li>
+<li class="fragment"><p>Também conhecido como <em>Diminishing Balance</em>, ou <em>Declining Balance Method</em> (DBM)!</p></li>
+<li class="fragment"><p>Exemplo:</p>
+<ul>
+<li class="fragment">Imóvel com vida útil de 60 anos e valor residual de 20%:
+<ul>
+<li class="fragment">Aos 15 anos de idade: <span class="math inline">\(K_d = [1-(1/60)]^{15} = (1-1,67\%)^{15} = 0,78\)</span></li>
+<li class="fragment">Aos 45 anos de idade: <span class="math inline">\(K_d = [1-(1/60)]^{45} = (1-1,67\%)^{45} = 0,47\)</span></li>
+<li class="fragment">Aos 60 anos de idade: <span class="math inline">\(K_d = [1-(1/60)]^{60} = (1-1,67\%)^{60} = 0,36\)</span></li>
+</ul></li>
+</ul></li>
+<li class="fragment"><p>Cuidado: com estes parâmetros não se chega ao <span class="math inline">\(V_R\)</span> do bem ao fim da sua <strong>VU</strong></p></li>
+</ul>
+</section>
+<section id="método-do-valor-decrescente-1" class="slide level2">
+<h2>Método do Valor Decrescente</h2>
+<table class="caption-top">
+<caption>Razões a considerar no método do valor decrescente</caption>
+<colgroup>
+<col style="width: 54%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>TIPO</th>
+<th>Vida útil</th>
+<th>Razão (%)</th>
+<th>Valor Residual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Barracos</td>
+<td>25</td>
+<td>4,0</td>
+<td>10%</td>
+</tr>
+<tr class="even">
+<td>Residência Proletário Rústico a médio comercial</td>
+<td>67</td>
+<td>1,5</td>
+<td>15%</td>
+</tr>
+<tr class="odd">
+<td>Residências médio superior a luxo</td>
+<td>50</td>
+<td>2,0</td>
+<td>15%</td>
+</tr>
+<tr class="even">
+<td>Apartamentos e Escritórios</td>
+<td>40</td>
+<td>2,5</td>
+<td>10%</td>
+</tr>
+<tr class="odd">
+<td>Armazéns e Indústrias</td>
+<td>67</td>
+<td>1,5</td>
+<td>20%</td>
+</tr>
+<tr class="even">
+<td>Construções de Madeira</td>
+<td>25</td>
+<td>4,0</td>
+<td>20%</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="método-do-valor-decrescente-2" class="slide level2">
+<h2>Método do Valor Decrescente</h2>
+<ul>
+<li class="fragment"><p>Segundo <span class="citation" data-cites="fleischer">Fleischer (<a href="#/referências" role="doc-biblioref" onclick="">1973, 80</a>)</span>:</p>
+<ul>
+<li class="fragment"><span id="eq-Fleischer"><span class="math display">\[r = 1 - \left( \frac{V_r}{V_0} \right)^{(1/V_u)} \qquad(3)\]</span></span></li>
+</ul></li>
+<li class="fragment"><p>Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:</p>
+<ul>
+<li class="fragment"><span class="math inline">\(V_u = 60 \text{ anos}\)</span>; <span class="math inline">\(V_0 = 800.000,00\)</span>; <span class="math inline">\(V_r = 160.000,00\)</span></li>
+<li class="fragment"><span class="math inline">\(r = 1 - \left (\frac{160.000}{800.000}\right)^{(1/60)} = 1-0,20^{(1/60)} = 2,65\%\)</span></li>
+<li class="fragment">Após:
+<ul>
+<li class="fragment">15 anos: <span class="math inline">\(K_d = (1-0,0265)^{15}= 0,67\)</span></li>
+<li class="fragment">45 anos: <span class="math inline">\(K_d = (1-0,0265)^{45} = 0,30\)</span></li>
+<li class="fragment">60 anos: <span class="math inline">\(K_d = (1-0,0265)^{60} = 0,20\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-do-valor-decrescente-razões-fleischer" class="slide level2">
+<h2>Método do Valor Decrescente: Razões <span class="citation" data-cites="fleischer">(<a href="#/referências" role="doc-biblioref" onclick="">Fleischer 1973</a>)</span></h2>
+<table class="caption-top">
+<caption>Razões a considerar no método do valor decrescente</caption>
+<colgroup>
+<col style="width: 66%">
+<col style="width: 14%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>TIPO</th>
+<th>Vida útil</th>
+<th>Razão (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Barracos</td>
+<td>25</td>
+<td>8,80</td>
+</tr>
+<tr class="even">
+<td>Residência Proletário Rústico a médio comercial</td>
+<td>67</td>
+<td>2,79</td>
+</tr>
+<tr class="odd">
+<td>Residências médio superior a luxo</td>
+<td>50</td>
+<td>3,72</td>
+</tr>
+<tr class="even">
+<td>Apartamentos e Escritórios</td>
+<td>40</td>
+<td>5,59</td>
+</tr>
+<tr class="odd">
+<td>Armazéns e Indústrias</td>
+<td>67</td>
+<td>2,37</td>
+</tr>
+<tr class="even">
+<td>Construções de Madeira</td>
+<td>25</td>
+<td>6,23</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">The declining balance method is an accelerated way to record larger depreciation in an asset’s early years. The system records smaller depreciation expenses during the asset’s later years.</li>
+</ul>
+</section>
+<section id="método-do-valor-decrescente-3" class="slide level2">
+<h2>Método do Valor Decrescente</h2>
+<table class="caption-top">
+<caption>Vida útil de 5 anos e Valor Residual de 10%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">36,90%</td>
+<td style="text-align: right;">295.200,00</td>
+<td style="text-align: right;">504.800,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">36,90%</td>
+<td style="text-align: right;">186.271,20</td>
+<td style="text-align: right;">318.528,80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">36,90%</td>
+<td style="text-align: right;">117.537,13</td>
+<td style="text-align: right;">200.991,67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">36,90%</td>
+<td style="text-align: right;">74.165,93</td>
+<td style="text-align: right;">126.825,75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">36,90%</td>
+<td style="text-align: right;">46.798,70</td>
+<td style="text-align: right;">80.027,05</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="método-do-double-declining" class="slide level2">
+<h2>Método do <em>Double Declining</em></h2>
+<ul>
+<li class="fragment">É um método de depreciação acelerada que deprecia o bem com a <a href="#/eq-DBM" class="quarto-xref">Equação&nbsp;2</a>, como uma razão de depreciação que é dobro da taxa de depreciação linear:
+<ul>
+<li class="fragment">Razão de depreciação (DDM): <span class="math inline">\(2\cdot 1/60 \approx 3,33\% \text{ a.a.}\)</span></li>
+</ul></li>
+<li class="fragment">Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+<ul>
+<li class="fragment">15 anos: <span class="math inline">\(K_d = (1-2/60)^{15} = (1-3,33\%)^{15} = 0,60\)</span></li>
+<li class="fragment">45 anos: <span class="math inline">\(K_d = (1-2/60)^{45} = (1-3,33\%)^{45} = 0,22\)</span></li>
+<li class="fragment">48 anos: <span class="math inline">\(K_d = (1-2/60)^{48} = (1-3,33\%)^{48} &lt; 0,20\)</span></li>
+</ul></li>
+<li class="fragment">Obs.:
+<ul>
+<li class="fragment">É comum que, após alguns anos de depreciação acelerada, mude-se para o método da linha reta, quando se deseja chegar ao valor zero de vida residual!</li>
+</ul></li>
+</ul>
+</section>
+<section id="método-do-double-declining-1" class="slide level2">
+<h2>Método do <em>Double Declining</em></h2>
+<table class="caption-top">
+<caption>Vida útil de 5 anos e Valor Residual de 10%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">40,00%</td>
+<td style="text-align: right;">320.000,00</td>
+<td style="text-align: right;">480.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">40,00%</td>
+<td style="text-align: right;">192.000,00</td>
+<td style="text-align: right;">288.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">40,00%</td>
+<td style="text-align: right;">115.200,00</td>
+<td style="text-align: right;">172.800,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">40,00%</td>
+<td style="text-align: right;">69.120,00</td>
+<td style="text-align: right;">103.680,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">40,00%</td>
+<td style="text-align: right;">23.680,00</td>
+<td style="text-align: right;">80.000,00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="método-da-soma-dos-anos" class="slide level2">
+<h2>Método da Soma dos Anos</h2>
+<ul>
+<li class="fragment"><p>Trata-se de um método de depreciação acelerada, porém que deprecia menos rapidamente do que o método <em>double declining</em>.</p></li>
+<li class="fragment"><p>A taxa de depreciação de cada período é obtida pela razão do número de períodos restantes à depreciar pela soma de todos os dígitos dos períodos.</p>
+<ul>
+<li class="fragment">Exemplo:
+<ul>
+<li class="fragment">Depreciação de um bem em 5 anos:
+<ul>
+<li class="fragment"><span class="math inline">\(r_1 = 5/(1+2+3+4+5) = 5/15\)</span></li>
+<li class="fragment"><span class="math inline">\(r_2 = 4/(1+2+3+4+5) = 4/15\)</span></li>
+<li class="fragment"><span class="math inline">\(r_3 = 3/(1+2+3+4+5) = 3/15\)</span></li>
+<li class="fragment"><span class="math inline">\(r_4 = 2/(1+2+3+4+5) = 2/15\)</span></li>
+<li class="fragment"><span class="math inline">\(r_5 = 1/(1+2+3+4+5) = 1/15\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="fragment"><p>O valor base da depreciação é fixo, igual a <span class="math inline">\(V_0 - V_R\)</span></p></li>
+</ul>
+</section>
+<section id="método-da-soma-dos-anos-1" class="slide level2">
+<h2>Método da Soma dos Anos</h2>
+<table class="caption-top">
+<caption>Vida útil de 5 anos e Valor Residual de 10%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">5/15</td>
+<td style="text-align: right;">240.000,00</td>
+<td style="text-align: right;">560.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">4/15</td>
+<td style="text-align: right;">192.000,00</td>
+<td style="text-align: right;">368.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">3/15</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">224.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">2/15</td>
+<td style="text-align: right;">96.000,00</td>
+<td style="text-align: right;">128.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">1/15</td>
+<td style="text-align: right;">48.000,00</td>
+<td style="text-align: right;">80.000,00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="método-de-kuentzle" class="slide level2">
+<h2>Método de Kuentzle</h2>
+<ul>
+<li class="fragment"><p>É um método de depreciação lenta, a princípio, que se acelera no final da vida útil do bem;</p></li>
+<li class="fragment"><p><span id="eq-Kuentzle"><span class="math display">\[Kd = \frac{V_u^2 - I_R^2}{V_u^2} \qquad(4)\]</span></span></p></li>
+<li class="fragment"><p>Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:</p>
+<ul>
+<li class="fragment">15 anos: <span class="math inline">\(K_d = 0,20 + 0,80 \cdot [(60^2-15^2)/60^2] = 0,95\)</span></li>
+<li class="fragment">45 anos: <span class="math inline">\(K_d = 0,20 + 0,80 \cdot [(60^2-45^2)/60^2] = 0,55\)</span></li>
+<li class="fragment">60 anos: <span class="math inline">\(K_d = 0,20 + 0,80 \cdot [(60^2-60^2)/60^2] = 0,20\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-do-kuentzle" class="slide level2">
+<h2>Método do Kuentzle</h2>
+<table class="caption-top">
+<caption>Vida útil de 5 anos e Valor Residual de 10%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">4,00%</td>
+<td style="text-align: right;">28.800,00</td>
+<td style="text-align: right;">771.200,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">12,00%</td>
+<td style="text-align: right;">86.400,00</td>
+<td style="text-align: right;">684.800,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">20,00%</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">540.800,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">28,00%</td>
+<td style="text-align: right;">201.600,00</td>
+<td style="text-align: right;">339.200,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">36,00%</td>
+<td style="text-align: right;">259.200,00</td>
+<td style="text-align: right;">80.000,00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="método-de-ross" class="slide level2">
+<h2>Método de Ross</h2>
+<ul>
+<li class="fragment"><p>É uma parábola com concavidade para baixo, que fica entre a parábola de Kuentzle e a reta da depreciação linear!</p></li>
+<li class="fragment"><p><span id="eq-Ross"><span class="math display">\[\alpha = \frac{1}{2} \left( \frac{I_R}{V_u} + \frac{I_R^2}{V_u^2} \right) \qquad(5)\]</span></span></p></li>
+<li class="fragment"><p>Exemplo:</p>
+<ul>
+<li class="fragment">Imóvel com vida útil de 60 anos e valor residual de 20%:
+<ul>
+<li class="fragment">15 anos: <span class="math inline">\(K_d = 0,20 + 0,80\cdot \left (1 - \frac{1}{2} \left( \frac{15}{60} + \frac{15^2}{60^2} \right) \right)= 0,875\)</span></li>
+<li class="fragment">45 anos: <span class="math inline">\(K_d = 0,20 + 0,80\cdot \left (1 - \frac{1}{2} \left( \frac{45}{60} + \frac{45^2}{60^2} \right) \right)= 0,475\)</span></li>
+<li class="fragment">60 anos: <span class="math inline">\(K_d = 0,20 + 0,80\cdot \left (1 - \frac{1}{2} \left( \frac{60}{60} + \frac{60^2}{60^2} \right) \right) = 0,20\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-do-ross" class="slide level2">
+<h2>Método do Ross</h2>
+<table class="caption-top">
+<caption>Vida útil de 5 anos e Valor Residual de 10%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">12,00%</td>
+<td style="text-align: right;">86.400,00</td>
+<td style="text-align: right;">713.600,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">16,00%</td>
+<td style="text-align: right;">115.200,00</td>
+<td style="text-align: right;">598.400,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">20,00%</td>
+<td style="text-align: right;">144.000,00</td>
+<td style="text-align: right;">454.400,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">24,00%</td>
+<td style="text-align: right;">172.800,00</td>
+<td style="text-align: right;">281.600,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">28,00%</td>
+<td style="text-align: right;">201.600,00</td>
+<td style="text-align: right;">80.000,00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="método-de-heideck" class="slide level2">
+<h2>Método de Heideck</h2>
+<ul>
+<li class="fragment">Leva em consideração apenas o estado de conservação da benfeitoria!</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./img/Heidecke.png"></p>
+<figcaption>Coeficiente de Heideck</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="método-de-ross-heideck" class="slide level2">
+<h2>Método de Ross-Heideck</h2>
+<ul>
+<li class="fragment"><p>É a combinação do Método de Ross, com o Método de Heideck:</p>
+<ul>
+<li class="fragment"><span id="eq-RossHeideck"><span class="math display">\[D_{R-H} = [\alpha + (1-\alpha)c]V_d \qquad(6)\]</span></span></li>
+<li class="fragment"><span class="math inline">\(\alpha\)</span> é a parcela da depreciação devido à idade, de Ross</li>
+<li class="fragment"><span class="math inline">\(c\)</span> é o coeficiente de Heidecke</li>
+<li class="fragment"><span class="math inline">\(V_d\)</span> é o valor depreciável</li>
+</ul></li>
+<li class="fragment"><p>Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%, necessitando de reparos importantes:</p>
+<ul>
+<li class="fragment">15 anos: <span class="math inline">\(\alpha = 0,5(15/60 + 15^2/60^2) = 0,156\)</span>, <span class="math inline">\(c = 0,526\)</span>
+<ul>
+<li class="fragment"><span class="math inline">\(K_d = 1 - D_{R-H} = 1-[0,156 + (1-0,156)\cdot0,526]\cdot 0,80 \approx 0,52\)</span></li>
+</ul></li>
+<li class="fragment">45 anos: <span class="math inline">\(\alpha = 0,5(45/60 + 45^2/60^2) = 0,656\)</span>, <span class="math inline">\(c = 0,526\)</span>
+<ul>
+<li class="fragment"><span class="math inline">\(K_d = 1 - D_{R-H} = 1-[0,656 + (1-0,656)\cdot0,526]\cdot 0,80 \approx 0,33\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="resumo" class="slide level2">
+<h2>Resumo</h2>
+
+<img data-src="02_files/figure-revealjs/fig-Deprec-1.png" width="672" class="r-stretch quarto-figure-center" id="fig-Deprec"><p class="caption">
+Figura&nbsp;1: Depreciação de um bem: métodos consagrados.
+</p></section>
+<section id="referências" class="slide level2 smaller scrollable">
+<h2>Referências</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-fleischer" class="csl-entry" role="listitem">
+Fleischer, Gerald A. 1973. <em>Teoria da aplicação do capital: Um estudo das decisões de investimento</em>. São Paulo, SP: Edgar Blucher.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="img/logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>VALORÍSTICA</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="02_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="02_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="02_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="02_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="02_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="02_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="02_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="02_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="02_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="02_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="text/javascript" charset="utf-8">
+
+      function add_custom_footer() {
+
+        let title_slide = document.querySelector("section#title-slide");
+
+        let title_slide_footer = title_slide.getAttribute('data-footer');
+
+        let footer = document.querySelector('div.footer p');
+
+        let global_footer_text = footer.innerHTML;
+
+    
+
+        if (title_slide.classList.contains('present')) {
+
+          footer.innerHTML = title_slide_footer;
+
+        }
+
+    
+
+        Reveal.on( 'slidechanged' , event => {
+
+            if (event.currentSlide.matches('#title-slide')) {
+
+              footer.innerHTML = title_slide_footer;
+
+            } else {
+
+              footer.innerHTML = global_footer_text;
+
+            }
+
+          });
+
+      };
+
+    
+
+      window.addEventListener("load", (event) => {
+
+        add_custom_footer();
+
+      });
+
+    </script>
+
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiada");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiada");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

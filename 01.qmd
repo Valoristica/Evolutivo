@@ -1,0 +1,332 @@
+---
+title: "Método Evolutivo"
+subtitle: "*Introdução*"
+author: "Luiz Droubi"
+institute: Academia da Engenharia de Avaliações
+date: last-modified
+date-format: long
+title-slide-attributes:
+  data-background-image: img/PPT_abertura.png
+  #data-background-size: contain
+  #data-background-opacity: "0.5"
+  data-footer: "<a href='http://www.valoristica.com.br'>http://www.valoristica.com.br</a>"
+include-after-body: add-custom-footer.html
+lang: pt
+format:
+  revealjs:
+    theme: [default, style.scss]
+    logo: img/logo.png
+    # theme: beige
+    # smaller: true
+    scrollable: true
+    incremental: true
+    transition: slide
+    background-transition: fade
+fontsize: 1.8em
+bibliography: references.bib
+brand: true
+toc: true
+toc-depth: 1
+footer: "VALORÍSTICA"
+slide-number: true
+---
+
+```{r}
+#| include: false
+library(kableExtra)
+library(appraiseR)
+library(sf)
+library(ggplot2)
+library(ggpmisc)
+```
+
+# Introdução
+
+## Introdução
+
+- Na NBR 14.653-01 [@NBR1465302, p. 19]:
+  - A composição do valor total do imóvel avaliando ($V_i$) pode ser obtida 
+  através da conjugação de métodos, a partir do valor do terreno ($V_t$), 
+  considerados o custo de reprodução das benfeitorias devidamente depreciado
+  ($C_b$) e o fator de comercialização ($\text{FC}$), ou seja:
+    - $$V_i = (V_t + C_b)\cdot \text{FC}$$
+    
+- Na NBR 14.653-01 [@NBR1465301, p. 14]:
+  - Identifica o valor do bem pelo somatório dos valores de seus componentes. 
+  **Caso** a finalidade seja a identificação do **valor de mercado**, deve ser 
+  considerado o fator de comercialização. 
+    
+## Introdução
+
+- NBR 14.653-02 [@NBR1465301, p. 13]:
+  - Para a identificação do **valor de mercado**, sempre que possível preferir o 
+  método comparativo direto de dados de mercado (MCDDM), conforme definido em 
+  8.2.1 da ABNT NBR 14653-1:2001.
+  
+- Outros objetivos:
+  - valor em risco, valor patrimonial, valor de liquidação forçada, 
+  valor de desmonte, custo de reedição, indicadores de viabilidade, etc.
+  
+- Outra situação:
+  - impossibilidade de estimar o valor de mercado através do MCDDM!
+  
+## Fundamentação
+
+![](./img/Grau_Fundamentacao_Evolutivo.png)
+
+# Método da Quantificação do Custo
+
+## Conceito de Custo de Reprodução de benfeitoria
+
+- Segundo a @NBR1465301 [p. 3], o custo de reprodução é:
+  - Custo necessário para reproduzir um bem idêntico, com a consideração dos
+  insumos pertinentes, sem considerar eventual depreciação.
+
+## Formas de quantificar o custo de uma benfeitoria
+
+- Orçamento Analítico (Detalhado)
+- Orçamento Sintético (Expedito)
+- Orçamento Paramétrico
+  - Estimativo, com base em parâmetros conhecidos
+
+## Formas de quantificar o custo de uma benfeitoria
+
+![Classes de Estimativa da AACE](./img/Classes_Estimativa_AACE.png)
+  
+
+## Tipos de orçamento
+
+| Tipo                | Margem de Erro           |
+|:--------------------|:-------------------------|
+| Avaliações          | De +-30 a +-20 %         |
+| Estimativas         | De +- 20 a +- 15 %       |
+| Orçamento Expedito  | De +- 15 a +- 10%        |
+| Orçamento Detalhado | De +- 10 a +- 5%         |
+| Orçamento Analítico | De +- 5 a +- 1%          |
+Table: Diferenças e características das avaliações, estimativas e orçamentos. 
+
+## Fundamentação
+
+![](./img/Grau_Fundamentacao_Custo.png)
+
+## Orçamento Analítico ou Sintético
+
+- Para elaboração de orçamento analítico ou sintético para fins de avaliação, 
+é necessário orçar toda a obra, usualmente em função de composições e preços de
+insumos disponíveis em bases públicas ou privadas, como SINAPI, SICRO (DNIT), 
+ORSE, TCPO, etc.  
+
+
+
+## Orçamento paramétrico
+
+- Trata-se de uma estimativa de custo, baseado na composição da área construída.
+
+- É muito mais comum a sua utilização na Engenharia de Avaliações
+
+- Área equivalente:
+  - "área virtual cujo custo de construção é equivalente ao custo da respectiva 
+  área real, utilizada quando este custo é diferente do custo unitário básico da
+  construção, adotado como referência. Pode ser, conforme o caso, maior ou menor
+  que a área real correspondente."
+  
+## Área equivalente
+
+![](img/Coeficientes_NBR_12721.png)
+
+
+## Área equivalente {.smaller}
+
+| Tipo da Área              | Coef. |
+|:--------------------------|------:|
+| 1º Subsolo                | 0,70  |
+| 2º Subsolo                | 0,80  |
+| 3º Subsolo                | 0,90  |
+| 4º Subsolo                | 1,00  |
+| Térreo Externo sobre laje | 0,60  |
+| Térreo Externo sobre solo | 0,25  |
+| Térreo Externo coberto    | 0,70  |
+| Térreo Interno            | 1,10  |
+| **Tipo**                  | 1,00  |
+| Cobertura Interna         | 1,00  |
+| Cobertura Externa         | 0,60  |
+| Barrilete/ Casas de Máq.  | 0,70  |
+
+
+## Cálculo do Custo de Construção Total
+
+- O Cálculo do Custo de Construção depende não apenas do padrão construtivo e
+da área equivalente total, mas também dos custos extra-CUB e dos benefícios e
+despesas indiretas (BDI).
+
+- Custos extra-CUB:
+  - Por exemplo: projetos, muro de divisa, muro de arrimo, piscina, sauna,
+  elevadores, etc.
+  
+- BDI:
+  - Lucro e despesas indiretas do construtor.
+  - Varia conforme a complexidade, volume, risco e duração da obra
+  - Também pode variar de empresa para empresa
+  - Nas residências devem ser em torno de 12 a 18% do custo direto da obra
+  (taxa de administração)
+  
+## Conceito de Custo de Reprodução de benfeitoria
+
+- Segundo a @NBR1465301 [p. 3], o custo de reprodução é:
+  - Custo necessário para reproduzir um bem idêntico, com a consideração dos
+  insumos pertinentes, sem considerar eventual depreciação.
+  
+## Cálculo do Custo Unitário de Construção (NBR 14.653-2)
+
+- $$C = \left( \text{CUB} + \frac{\text{OE} + \text{OI} + (\text{OF}_e - \text{OF}_d)}{S} \right )(1+A)(1+F)(1+L)$$
+
+  - $C$ é o custo unitário de construção por $m^2$ de área equivalente
+  - $\text{CUB}$ é o custo unitário básico
+  - $\text{OE}$ é o orçamento de elevadores
+  - $\text{OI}$ é o orçamento de instalações especiais
+  - $\text{OF}_e$ é o orçamento de fundações especiais
+  - $\text{OF}_d$ é o orçamento das fundações diretas
+  - $A$ é a taxa de administração da obra
+  - $F$ é o percentual relativo às despesas financeiras
+  - $L$ é o percentual correspondente ao lucro ou remuneração da construtora
+
+## Conceito de Custo de Reedição de benfeitoria
+
+- Segundo a @NBR1465301 [p. 3], o custo de **reedição** de uma benfeitoria é:
+  - custo de reprodução, **descontada a depreciação do bem**, tendo em vista o 
+  estado em que se encontra
+  
+# Depreciação
+
+## Depreciação: conceitos gerais
+
+- Vida útil (VU) de um bem: período que docorre entre a data de conclusão da 
+fabricação de um bem e o momento em que este bem torna-se obsoleto, devido aos
+crescentes custos de manutenção.
+
+- Idade real ($I_R$) de um bem: período decorrido entre a data em que o bem foi 
+concluído e a data da avaliação
+
+- Vida remanescente: período restante de vida de um bem, entre a data de 
+avaliação e o fim de sua vida útil
+
+- Valor residual ($V_r$): é o valor da demolição ou de reaproveitamento de parte 
+dos materiais no fim da vida útil do bem
+
+- Valor depreciável ($V_d$): é a diferença entre o valor total e o valor 
+residual de um bem
+
+- Idade aparente ($I_A$): utilizada apenas no método do valor decrescente, por 
+conta da subjetividade. É a idade atribuída ao bem pelo avaliador durante a 
+vistoria.
+
+- Coeficiente de Depreciação ($K_d$): coeficiente calculado em função da vida
+útil, do valor residual, da idade e, eventualmente, do estado de conservação do
+bem
+
+## Depreciação
+
+- A depreciação pode ser computada através do levantamento dos custos dos 
+serviços necessários para levar o bem, do estado que se encontra, ao estado de
+novo (Grau III do Método da Quantificação do Custo)
+
+- A segunda opção, mais frequente, é o cálculo da depreciação através de método
+consagrado (Ross-Heideck, por exemplo)
+
+- Para a escolha do método de depreciação deve ser levada em conta a finalidade
+da avaliação
+  - Se a avaliação tiver fins contábeis, pode ser mais adequado considerar um 
+  método de depreciação acelerada
+  - Se a finalidade for alienação, garantia ou desapropriação, o mais adequado,
+  em geral, é o Método de Ross-Heideck, quando é possível determinar o estado
+  de conservação
+
+## Depreciação: métodos consagrados
+
+- Para aplicação da depreciação:
+  - Determina-se a vida útil, valor residual e valor depreciável, em função da
+  tipologia e do objetivo da avaliação;
+  - Estima-se a idade real ou aparente do bem;
+  - Calcula-se um $K_d$ de acordo com um dos métodos consagrados;
+  - Aplica-se o coeficiente de depreciação ao custo de reprodução para obtenção
+  do custo de reedição da benfeitoria.
+  
+# Fator de Comercialização
+
+## Fator de Comercialização
+
+- Segundo a @NBR1465301, o fator de comercialização é:
+  - razão entre o valor de mercado de um bem e o seu custo total, que pode ser 
+  igual, maior ou menor do que 1.
+
+- Também conhecido com 'Vantagem da Coisa Feita'.
+
+## Fator de Comercialização
+
+| Tipo de Prédios        | Novos | de 0 a 10 anos | de 10 a 20 anos | de 20 a 30 anos |
+|:-----------------------|:-----:|:--------------:|:---------------:|:---------------:|
+| Grande estrutura       | 30%   | 30% a 25%      | 25% a 15%       | 15% a 0         |
+| Pequena estrutura      | 20%   | 20% a 16,5%    | 16,5% a 10,5%   | 10,5% a 0       |
+| Industrial             | 15%   | 15% a 12,5%    | 12,5% a 7,5%    | 7,5% a 0        |
+| Residencial proletário | 10%   | 10% a 8,5%     | 8,5% a 5,0%     | 5% a 0          |
+Table: Vantagem da Coisa Feita. Fonte: Eng.º Joaquim da Rocha Medeiros Jr.
+
+
+## Fator de Comercialização
+
+- O fator de comercialização pode ser estimado!
+
+- Por exemplo, com base numa amostra com preço de terrenos e no custo de 
+reedição da benfeitoria, comparando-os com o valor do mercado da residência 
+pronta.
+
+- Assuma:
+  - Preço do terreno: $\text{P}_{\text{Terreno}} = \text{R\$ } 100.000,00$
+  - Custo de Reprodução: $\text{CC} = \text{R\$ } 400.000,00$
+  - Valor de Mercado da Casa (MCDDM): $\text{VM} = \text{R\$ } 600.000,00$ 
+  
+- Fator de Comercialização: 
+  - $$\text{FC} = \frac{600.000}{(100.000 + 400.000)} = 1,20$$
+  
+## Fator de Comercialização
+
+- Problemas: 
+  - Muitas vezes o valor de mercado é desconhecido!
+  - o capital empregado para a reedição da benfeitoria não é aplicado
+  instantaneamente (custo financeiro)!
+  - o  custo de reprodução deve considerar também a remuneração do construtor ou
+  incorporador e as despesas de venda (comissões)
+  
+  
+## Fator de Comercialização
+
+- Custos Financeiros:
+  - estima-se um prazo para a obra
+  - aplica-se uma taxa $i\%$ ao capital terreno ($V_t$) durante todo o período 
+  da obra e aplica-se à metade do capital-benfeitoria ($V_b$) no mesmo período:
+    - $$C_f = i\cdot n \cdot \left (V_t + \frac{V_b}{2} \right )$$
+- Lucro:
+  - É aceitável uma taxa de 5% a 25%, em conformidade com o tipo de investimento
+- Calculam-se as despesas de comercialização (comissões)
+  - É usual uma taxa de 3% a 6% 
+  
+## Fator de Comercialização
+
+- Exemplo 2:
+  - Uma casa num terreno de 10x25 $m^2$, com 180 $m^2$ de área construída, com
+  custo de reprodução estimado em R\$ 342.489,60. Considerar taxa de 0,72% a.m.,
+  13 meses de obra, com lucro previsto de 10%, despesas de comercialização de 6%
+  e valor do terreno de R\$ 137.500,00
+  
+- Solução:
+  - $V_t =  \text{R\$ } 135.000,00$; $V_b =  \text{R\$ } 342.489,60$
+  - $C_f = 0,0072 \cdot 13 (137.500 + 342489,60/2) = \text{R\$ } 28.898,51$
+  - $\sum = \text{R\$ } 508.888,11$
+  - $\text{Lucro} = \text{R\$ } 50.888,81$
+  - $D_v = \text{R\$ } 33.586,62$
+  - $V_v = \text{R\$ } 593.363,54$
+  - $\text{FC} = 593.363,54/(137.500,00 + 342.489,60) \approx 1,23$
+  
+
+## Referências
+

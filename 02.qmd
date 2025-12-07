@@ -1,0 +1,432 @@
+---
+title: "Método Evolutivo"
+subtitle: "*Depreciação*"
+author: "Luiz Droubi"
+institute: Academia da Engenharia de Avaliações
+date: last-modified
+date-format: long
+title-slide-attributes:
+  data-background-image: img/PPT_abertura.png
+  #data-background-size: contain
+  #data-background-opacity: "0.5"
+  data-footer: "<a href='http://www.valoristica.com.br'>http://www.valoristica.com.br</a>"
+include-after-body: add-custom-footer.html
+lang: pt
+format:
+  revealjs:
+    theme: [default, style.scss]
+    logo: img/logo.png
+    # theme: beige
+    # smaller: true
+    scrollable: true
+    incremental: true
+    transition: slide
+    background-transition: fade
+fontsize: 1.8em
+bibliography: references.bib
+brand: true
+toc: true
+toc-depth: 1
+footer: "VALORÍSTICA"
+slide-number: true
+---
+
+```{r}
+#| include: false
+library(kableExtra)
+library(appraiseR)
+library(sf)
+library(ggplot2)
+theme_set(theme_bw())
+library(ggpmisc)
+```
+
+# Depreciação
+
+## Depreciação: conceitos gerais
+
+- Vida útil (**VU**) de um bem: período que docorre entre a data de conclusão da 
+fabricação de um bem e o momento em que este bem torna-se obsoleto, devido aos
+crescentes custos de manutenção;
+
+- Idade real ($I_R$) de um bem: período decorrido entre a data em que o bem foi 
+concluído e a data da avaliação;
+
+- Vida remanescente: período restante de vida de um bem, entre a data de 
+avaliação e o fim de sua vida útil;
+
+- Valor residual ($V_R$): é o valor da demolição ou de reaproveitamento de parte 
+dos materiais no fim da vida útil do bem;
+
+- Valor depreciável ($V_d$): é a diferença entre o valor total e o valor 
+residual de um bem;
+
+- Idade aparente ($I_A$): utilizada apenas no método do valor decrescente, por 
+conta da subjetividade. É a idade atribuída ao bem pelo avaliador durante a 
+vistoria;
+
+- Coeficiente de Depreciação ($K_d$): coeficiente calculado em função da vida
+útil, do valor residual, da idade e, eventualmente, do estado de conservação do
+bem.
+
+## Depreciação: conceitos gerais
+
+- Valor depreciado (*write-off*): é o valor depreciado em cada período;
+
+- Valor base da depreciação: é o valor sobre o qual é aplicada a taxa de 
+depreciação em cada período.
+  - Pode ser fixo (depreciação linear, soma dos anos, Kuentzle, Ross)
+  - Ou variável (valor decrescente, *double declining*)
+
+- Taxa de depreciação ($\%D$): é a razão entre o valor depreciado no período e o
+valor base da depreciação.
+  - Pode ser constante ao longo da VU do bem (depreciação linear, 
+  *double declining*, valor decrescente);
+  - Ou pode ser variável, mudando em função da idade do bem (soma dos anos,
+  Kuntzle, Ross).
+  
+## Taxa de Depreciação
+  
+- Exemplo:
+  - Um caminhão foi adquirido por R$ 800.000,00 e tem valor residual de 10% 
+  (R$ 80.000,00). Calcular a taxa de depreciação linear do ativo por um período de 5 anos:
+    - Taxa de Depreciação: $(800.000-80.000)/5 = \text{R\$ } 144.000,00/\text{ano}$
+    - Ou: $144.000/(800.000-80.000) = 20\% \text{ a.a.}$
+
+## Métodos de Depreciação
+
+- Métodos mais simples, quando não é possível determinar o estado de conservação:
+  - Depreciação Linear
+
+- Métodos de depreciação acelerada:
+  - Valor Decrescente
+  - *Double Declining*
+  - Soma dos anos
+  
+- Método mais preciso, que leva em conta o estado de conservação:
+  - Ross-Heidecke
+  
+- Outros métodos:
+  - Kuentzle
+  - Ross
+  
+## Para entender: métodos de depreciação acelerada
+
+- Gastos com reparos e conservação de bens são dedutíveis na determinação do
+lucro real.
+
+- [Lei 9.249/1995](https://www.planalto.gov.br/ccivil_03/Leis/L9249.htm):
+  -  Art. 13. Para efeito de apuração do lucro real e da base de cálculo da 
+  contribuição social sobre o lucro líquido, são vedadas as seguintes deduções,
+  independentemente do disposto no art. 47 da Lei nº 4.506, de 30 de novembro de
+  1964:
+    - (...)
+    -  III - de despesas de **depreciação**, amortização, **manutenção**, 
+    **reparo**, **conservação**, impostos, taxas, seguros e quaisquer outros 
+    gastos com bens móveis ou **imóveis**, **exceto se intrinsecamente 
+    relacionados com a produção ou comercialização dos bens e serviços**;
+    - (...)
+ 
+## Para entender: métodos de depreciação acelerada
+
+- Em suma:
+  - Nos primeiros anos, os bens não demandam grandes gastos com manutenção, 
+  reparos e conservação;
+    - Dessa maneira, não são muitos os gastos dedutíveis nesses primeiros anos 
+    de uso de bens móveis ou imóveis;
+  - As despesas de depreciação, contudo, são dedutíveis;
+  - Por isso é interessante a depreciação acelerada:
+    - É possível deduzir mais despesas de depreciação nos primeiros anos;
+    - E nos anos finais de operação do bem, as despesas com manutenção, reparos
+    e conservação predominam.
+    
+- Eventualmente o governo, visando incentivar investimentos, pode  utilizar a 
+depreciação acelerada:
+  - [2024](https://g1.globo.com/politica/noticia/2024/05/28/lula-sanciona-lei-para-depreciacao-acelerada-de-maquinas-e-equipamentos-para-modernizacao-da-industria.ghtml) e [2025](https://g1.globo.com/economia/noticia/2025/02/28/alckmin-lanca-nova-fase-de-programa-de-depreciacao-acelerada-para-a-industria.ghtml)
+  
+## Método da Linha Reta
+
+- É o método da depreciação linear! $K_d$ é calculado através da @eq-LinhaReta:
+  - $$K_d = P_R + PD \cdot \frac{VU-I_E}{VU}$$ {#eq-LinhaReta}
+    - $P_R$: Parcela Residual (%)
+    - $P_D$: Parcela Depreciável (%)
+    - $I_E$: Idade da Edificação
+    - $VU$: Vida útil
+  
+- Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+    - Aos 15 anos de idade: $K_d = 0,20 + 0,80\cdot [(60 - 15)/60] = 0,80$
+    - Aos 45 anos de idade: $K_d = 0,20 + 0,80\cdot [(60 - 45)/60] = 0,40$
+    - Aos 60 anos de idade: $K_d = 0,20$
+    - Taxa de depreciação: $1/60 \approx 1,67\% \text{ a.a.}$
+    
+## Método da Linha Reta
+
+| Período | %D    | *Write-off* | *Book-value* |
+|:--------|------:|------------:|-------------:|
+| 0       | -     | -           | 800.000,00   |
+| 1       | 20%   | 144.000,00  | 656.000,00   |
+| 2       | 20%   | 144.000,00  | 512.000,00   |
+| 3       | 20%   | 144.000,00  | 368.000,00   |
+| 4       | 20%   | 144.000,00  | 224.000,00   |
+| 5       | 20%   | 144.000,00  |  80.000,00   |
+Table: Vida útil de 5 anos e Valor Residual de 10%.
+
+## Método do Valor Decrescente
+
+- Também é usual efetuar a depreciação pelo método do valor descrescente, que 
+deprecia o imóvel a uma taxa constante:
+  - $$K_d= (1-r)^{I_A}$$ {#eq-DBM}
+    - $r$ é a razão da Depreciação ($r = 1/V_u$)
+    - $I_A$ é a idade aparente
+  
+- Também conhecido como *Diminishing Balance*, ou *Declining Balance Method* 
+(DBM)!
+    
+- Exemplo:
+  - Imóvel com vida útil de 60 anos e valor residual de 20%:
+    - Aos 15 anos de idade: $K_d = [1-(1/60)]^{15} = (1-1,67\%)^{15} = 0,78$
+    - Aos 45 anos de idade: $K_d = [1-(1/60)]^{45} = (1-1,67\%)^{45} = 0,47$
+    - Aos 60 anos de idade: $K_d = [1-(1/60)]^{60} = (1-1,67\%)^{60} = 0,36$
+    
+- Cuidado: com estes parâmetros não se chega ao $V_R$ do bem ao fim da sua **VU**
+    
+## Método do Valor Decrescente
+
+
+| TIPO                                            | Vida útil | Razão    (%) | Valor Residual |
+|-------------------------------------------------|-----------|--------------|----------------|
+| Barracos                                        | 25        | 4,0          | 10%            |
+| Residência Proletário Rústico a médio comercial | 67        | 1,5          | 15%            |
+| Residências médio superior a luxo               | 50        | 2,0          | 15%            |
+| Apartamentos e Escritórios                      | 40        | 2,5          | 10%            |
+| Armazéns e Indústrias                           | 67        | 1,5          | 20%            |
+| Construções de Madeira                          | 25        | 4,0          | 20%            |
+
+: Razões a considerar no método do valor decrescente
+
+## Método do Valor Decrescente
+
+- Segundo @fleischer [p. 80]:
+
+  - $$r = 1 - \left( \frac{V_r}{V_0} \right)^{(1/V_u)}$$ {#eq-Fleischer}
+
+- Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+  - $V_u = 60 \text{ anos}$; $V_0 = 800.000,00$; $V_r = 160.000,00$
+  - $r = 1 - \left (\frac{160.000}{800.000}\right)^{(1/60)} = 1-0,20^{(1/60)} = 2,65\%$
+  - Após:
+    - 15 anos: $K_d = (1-0,0265)^{15}= 0,67$
+    - 45 anos: $K_d = (1-0,0265)^{45} = 0,30$
+    - 60 anos: $K_d = (1-0,0265)^{60} = 0,20$
+  
+## Método do Valor Decrescente: Razões [@fleischer]
+
+| TIPO                                            | Vida útil | Razão    (%) |
+|-------------------------------------------------|-----------|--------------|
+| Barracos                                        | 25        | 8,80         |
+| Residência Proletário Rústico a médio comercial | 67        | 2,79         |
+| Residências médio superior a luxo               | 50        | 3,72         |
+| Apartamentos e Escritórios                      | 40        | 5,59         |
+| Armazéns e Indústrias                           | 67        | 2,37         |
+| Construções de Madeira                          | 25        | 6,23         |
+
+: Razões a considerar no método do valor decrescente
+
+- The declining balance method is an accelerated way to record larger 
+depreciation in an asset's early years. The system records smaller depreciation 
+expenses during the asset's later years.
+
+## Método do Valor Decrescente
+
+| Período | %D     | *Write-off* | *Book-value* |
+|:--------|-------:|------------:|-------------:|
+| 0       | -      | -           | 800.000,00   |
+| 1       | 36,90% | 295.200,00  | 504.800,00   |
+| 2       | 36,90% | 186.271,20  | 318.528,80   |
+| 3       | 36,90% | 117.537,13  | 200.991,67   |
+| 4       | 36,90% |  74.165,93  | 126.825,75   |
+| 5       | 36,90% |  46.798,70  |  80.027,05   |
+Table: Vida útil de 5 anos e Valor Residual de 10%.
+
+## Método do *Double Declining*
+
+- É um método de depreciação acelerada que deprecia o bem com a @eq-DBM, como 
+uma razão de depreciação que é dobro da taxa de depreciação linear:
+  - Razão de depreciação (DDM): $2\cdot 1/60 \approx 3,33\% \text{ a.a.}$
+
+- Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+    - 15 anos: $K_d = (1-2/60)^{15} = (1-3,33\%)^{15} = 0,60$
+    - 45 anos: $K_d = (1-2/60)^{45} = (1-3,33\%)^{45} = 0,22$
+    - 48 anos: $K_d = (1-2/60)^{48} = (1-3,33\%)^{48} < 0,20$
+
+    
+- Obs.:
+  - É comum que, após alguns anos de depreciação acelerada, mude-se para o 
+  método da linha reta, quando se deseja chegar ao valor zero de vida residual!
+  
+## Método do *Double Declining*
+
+| Período | %D     | *Write-off* | *Book-value* |
+|:--------|-------:|------------:|-------------:|
+| 0       | -      | -           | 800.000,00   |
+| 1       | 40,00% | 320.000,00  | 480.000,00   |
+| 2       | 40,00% | 192.000,00  | 288.000,00   |
+| 3       | 40,00% | 115.200,00  | 172.800,00   |
+| 4       | 40,00% |  69.120,00  | 103.680,00   |
+| 5       | 40,00% |  23.680,00  |  80.000,00   |
+Table: Vida útil de 5 anos e Valor Residual de 10%.
+  
+## Método da Soma dos Anos
+
+- Trata-se de um método de depreciação acelerada, porém que deprecia menos
+rapidamente do que o método *double declining*.
+
+- A taxa de depreciação de cada período é obtida pela razão do número de períodos
+restantes à depreciar pela soma de todos os dígitos dos períodos.
+  - Exemplo: 
+    - Depreciação de um bem em 5 anos:
+      - $r_1 = 5/(1+2+3+4+5) = 5/15$
+      - $r_2 = 4/(1+2+3+4+5) = 4/15$
+      - $r_3 = 3/(1+2+3+4+5) = 3/15$
+      - $r_4 = 2/(1+2+3+4+5) = 2/15$
+      - $r_5 = 1/(1+2+3+4+5) = 1/15$
+      
+- O valor base da depreciação é fixo, igual a $V_0 - V_R$
+      
+## Método da Soma dos Anos
+
+| Período | %D     | *Write-off* | *Book-value* |
+|:--------|-------:|------------:|-------------:|
+| 0       | -      | -           | 800.000,00   |
+| 1       | 5/15   | 240.000,00  | 560.000,00   |
+| 2       | 4/15   | 192.000,00  | 368.000,00   |
+| 3       | 3/15   | 144.000,00  | 224.000,00   |
+| 4       | 2/15   |  96.000,00  | 128.000,00   |
+| 5       | 1/15   |  48.000,00  |  80.000,00   |
+Table: Vida útil de 5 anos e Valor Residual de 10%.
+
+## Método de Kuentzle
+
+- É um método de depreciação lenta, a princípio, que se acelera no final da 
+vida útil do bem;
+
+- $$Kd = \frac{V_u^2 - I_R^2}{V_u^2}$$ {#eq-Kuentzle}
+
+- Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+  - 15 anos: $K_d = 0,20 + 0,80 \cdot [(60^2-15^2)/60^2] = 0,95$
+  - 45 anos: $K_d = 0,20 + 0,80 \cdot [(60^2-45^2)/60^2] = 0,55$
+  - 60 anos: $K_d = 0,20 + 0,80 \cdot [(60^2-60^2)/60^2] = 0,20$
+  
+## Método do Kuentzle
+
+| Período | %D     | *Write-off* | *Book-value* |
+|:--------|-------:|------------:|-------------:|
+| 0       | -      | -           | 800.000,00   |
+| 1       |  4,00% |  28.800,00  | 771.200,00   |
+| 2       | 12,00% |  86.400,00  | 684.800,00   |
+| 3       | 20,00% | 144.000,00  | 540.800,00   |
+| 4       | 28,00% | 201.600,00  | 339.200,00   |
+| 5       | 36,00% | 259.200,00  |  80.000,00   |
+Table: Vida útil de 5 anos e Valor Residual de 10%.
+
+## Método de Ross
+
+- É uma parábola com concavidade para baixo, que fica entre a parábola de 
+Kuentzle e a reta da depreciação linear!
+
+- $$\alpha = \frac{1}{2} \left( \frac{I_R}{V_u} + \frac{I_R^2}{V_u^2} \right)$$ {#eq-Ross}
+
+- Exemplo:
+  - Imóvel com vida útil de 60 anos e valor residual de 20%:
+    - 15 anos: $K_d = 0,20 + 0,80\cdot \left (1 - \frac{1}{2} \left( \frac{15}{60} + \frac{15^2}{60^2} \right) \right)= 0,875$
+    - 45 anos: $K_d = 0,20 + 0,80\cdot \left (1 - \frac{1}{2} \left( \frac{45}{60} + \frac{45^2}{60^2} \right) \right)= 0,475$
+    - 60 anos: $K_d = 0,20 + 0,80\cdot \left (1 - \frac{1}{2} \left( \frac{60}{60} + \frac{60^2}{60^2} \right) \right) = 0,20$
+    
+## Método do Ross
+
+| Período | %D     | *Write-off* | *Book-value* |
+|:--------|-------:|------------:|-------------:|
+| 0       | -      | -           | 800.000,00   |
+| 1       | 12,00% |  86.400,00  | 713.600,00   |
+| 2       | 16,00% | 115.200,00  | 598.400,00   |
+| 3       | 20,00% | 144.000,00  | 454.400,00   |
+| 4       | 24,00% | 172.800,00  | 281.600,00   |
+| 5       | 28,00% | 201.600,00  |  80.000,00   |
+Table: Vida útil de 5 anos e Valor Residual de 10%.
+  
+## Método de Heideck
+
+- Leva em consideração apenas o estado de conservação da benfeitoria!
+
+. . . 
+
+![Coeficiente de Heideck](./img/Heidecke.png)
+  
+## Método de Ross-Heideck
+
+- É a combinação do Método de Ross, com o Método de Heideck:
+
+  - $$D_{R-H} = [\alpha + (1-\alpha)c]V_d$$ {#eq-RossHeideck}
+  - $\alpha$ é a parcela da depreciação devido à idade, de Ross
+  - $c$ é o coeficiente de Heidecke
+  - $V_d$ é o valor depreciável
+  
+- Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%, necessitando
+de reparos importantes:
+  - 15 anos: $\alpha = 0,5(15/60 + 15^2/60^2) = 0,156$, $c = 0,526$
+    - $K_d = 1 - D_{R-H} = 1-[0,156 + (1-0,156)\cdot0,526]\cdot 0,80 \approx 0,52$
+  - 45 anos: $\alpha = 0,5(45/60 + 45^2/60^2) = 0,656$, $c = 0,526$
+    - $K_d = 1 - D_{R-H} = 1-[0,656 + (1-0,656)\cdot0,526]\cdot 0,80 \approx 0,33$ 
+
+  
+## Resumo
+
+```{r}
+#| label: fig-Deprec
+#| fig-cap: "Depreciação de um bem: métodos consagrados."
+#| fig-height: 5
+#| fig-width: 7
+# Curva de Depreciacao
+library(appraiseR)
+dados <- data.frame(Idade = 0:60)
+dados <- within(dados, {
+    `Linha Reta` <- straightLine(60, Age = Idade, 20/100)
+    DBM <- DBM(60, Idade, 20/100)
+    DDM <- DDM(60, Idade, 20/100)
+    SOY <- SOY(60, Idade, 20/100)
+    Kuentzle <- Kuentzle(60, Idade, 20/100)
+    Ross <- Ross(60, Idade, 20/100)
+    `RossHeideck (Reparos Simples)` <- RossHeideck(60, Idade, "Reparos simples", 20/100)
+})
+dados <- 
+  dados |> 
+  reshape2::melt(id.vars = "Idade", variable.name = "Método", value.name = "Kd")
+
+ggplot(dados, aes(x = Idade, y = Kd, color = `Método`)) +
+  geom_line() +
+  labs(title = "Depreciação de um bem", subtitle = "Métodos Consagrados",
+      caption = "Elaboração: Eng.º Luiz Droubi, Dez/2025.")
+# plot(NULL, xlim = c(0, 60), ylim = c(0, 1), las = 2,
+# xlab = "Idade Real/Aparente",
+# ylab = expression(K[d])
+# )
+# curve(straightLine(60, x, Salvage = 20/100), from = 0, to = 60, add = T)
+# curve(DBM(60, x, Salvage = 20/100), from = 0, to = 60, add = T, col ="blue")
+# curve(DDM(60, x, Salvage = 20/100), from = 0, to = 60, add = T, col = "brown")
+# # curve(SOY(60, x, Salvage = 20/100),  from = 0, to = 60, add = T, col = "darkblue")
+# curve(Kuentzle(60, x, Salvage = 20/100), from = 0, to = 60, add = T, col = "green")
+# curve(Ross(60, x, Salvage = 20/100), add = T, col = "red")
+# curve(RossHeideck(60, x, Conservacao = "Reparos simples", Salvage = 20/100),
+#       add = T, col = "orange")
+# abline(h = .20, lty = 2)
+# title(main = "Depreciação de um bem",
+#      sub = "VU = 60; S = 20%", adj = 0)
+# legend("topright", inset=c(-.2,0),
+#      title = "Metodo",
+#      legend=c("Linha Reta", "Valor Decrescente", "Double Declining", "Kuentzle",
+#       "Ross", "Ross-Heideck (Reparos Simples)"), text.font = 4,
+#      col=c("black", "blue", "brown", "green", "red", "orange"), cex=0.8, lty = 1)
+```
+
+
+## Referências
+
