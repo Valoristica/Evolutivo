@@ -236,6 +236,12 @@ multiplicação dos termos $(1+A)$, $(1+F)$ e $(1+L)$
   **incorporador**, e não do construtor
   - Faltam Projetos, Impostos e Taxas!
 
+## Exemplo
+
+- Uma residência de médio padrão conta com 205 $m^2$ de área privativa, 50 $m^2$
+de área térrea coberta (garagens e área de serviço), e 25 $m^2$ de área térrea
+externa sobre laje. Calcule o custo de reprodução, sabendo que o CUB divulgado
+pelo SINDUSCON para o mês de referência é de R$ 2.540,00 $/m^2$
 
 
 ## Conceito de Custo de Reedição de benfeitoria

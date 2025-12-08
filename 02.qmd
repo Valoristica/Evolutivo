@@ -202,7 +202,7 @@ deprecia o imóvel a uma taxa constante:
 | Armazéns e Indústrias                           | 67        | 1,5          | 20%            |
 | Construções de Madeira                          | 25        | 4,0          | 20%            |
 
-: Razões a considerar no método do valor decrescente
+: Razões a considerar no método do valor decrescente. Fonte: @ibapesp07, p.316.
 
 ## Método do Valor Decrescente
 
@@ -359,7 +359,7 @@ Table: Vida útil de 5 anos e Valor Residual de 10%.
 
 . . . 
 
-![Coeficiente de Heideck](./img/Heidecke.png)
+![Coeficiente de Heideck. Fonte: @ibapesp07, p. 324](./img/Heidecke.png)
   
 ## Método de Ross-Heideck
 
