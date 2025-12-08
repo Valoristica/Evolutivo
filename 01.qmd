@@ -49,7 +49,7 @@ library(ggpmisc)
   através da conjugação de métodos, a partir do valor do terreno ($V_t$), 
   considerados o custo de reprodução das benfeitorias devidamente depreciado
   ($C_b$) e o fator de comercialização ($\text{FC}$), ou seja:
-    - $$V_i = (V_t + C_b)\cdot \text{FC}$$
+    - $$V_i = (V_t + C_b)\cdot \text{FC}$$ {#eq-Evolutivo}
     
 - Na NBR 14.653-01 [@NBR1465301, p. 14]:
   - Identifica o valor do bem pelo somatório dos valores de seus componentes. 
@@ -116,23 +116,49 @@ Table: Diferenças e características das avaliações, estimativas e orçamento
 insumos disponíveis em bases públicas ou privadas, como SINAPI, SICRO (DNIT), 
 ORSE, TCPO, etc.  
 
-
+- Para avaliação dos custos detalhados, a NBR 14.653-2 [@NBR1465302, 21] 
+recomenda:
+  - Vistoria: a vistoria detalhada da benfeitoria tem como objetivo examinar as
+  especificações dos materiais aplicados, o estado de conservação e a idade 
+  estimada
+  - Levantamento de quantitativos: Nesta estapa são levantados todos os 
+  quantitativos de materiais e serviços aplicados na obra.
+  - Pesquisa de custos: de acordo com as especificações dos materiais e serviços
+  utilizados para a execução da benfeitoria, coletam-se os seus respectivos
+  custos em fontes de consulta especializados.
+  - Preenchimento da planilha orçamentária: O preenchimento da planilha deve ser
+  de acordo com o modelo sugerido na ABNT NBR 12721, onde são discriminados 
+  todos os serviços, indicando-se a unidade de medida, a quantidade, o custo 
+  unitário, o custo total e a fonte de consulta.
 
 ## Orçamento paramétrico
 
-- Trata-se de uma estimativa de custo, baseado na composição da área construída.
+- Trata-se de uma estimativa de custo, baseado na composição da área construída,
+de muito comum utilização na Engenharia de Avaliações;
 
-- É muito mais comum a sua utilização na Engenharia de Avaliações
+- Trata-se de aplicar um custo unitário de construção a uma área equivalente de
+construção, que é computada baseada no padrão construtivo de cada tipo de área;
 
-- Área equivalente:
+- A definição de Área equivalente, segundo a NBR 12721 [@NBR12721, 8]:
   - "área virtual cujo custo de construção é equivalente ao custo da respectiva 
   área real, utilizada quando este custo é diferente do custo unitário básico da
   construção, adotado como referência. Pode ser, conforme o caso, maior ou menor
   que a área real correspondente."
   
 ## Área equivalente
+  
+- Na NBR 14.653-2 [@NBR1465302, 20]:
+  - $$S = A_p + \sum_{i=1}^n A_{qi} P_i$$ {#eq-AreaEquivalente}
+    - $S$ é a área equivalente de construção;
+    - $A_p$ é a área construída padrão;
+    - $A_{qi}$ é a área construída de padrão diferente;
+    - $P_i$ é o percentual correspondente à razão entre o custo estimado da área
+    padrão diferente e a área padrão, de acordo com os limites estabelecidos na
+    ABNT NBR 12721 [@NBR12721].
+  
+## Área equivalente
 
-![](img/Coeficientes_NBR_12721.png)
+![Fonte: @NBR12721, 8-9](img/Coeficientes_NBR_12721.png)
 
 
 ## Área equivalente {.smaller}
@@ -172,23 +198,45 @@ despesas indiretas (BDI).
   
 ## Conceito de Custo de Reprodução de benfeitoria
 
-- Segundo a @NBR1465301 [p. 3], o custo de reprodução é:
+- Segundo a NBR 14.653-1 [@NBR1465301, p. 3], o custo de reprodução é:
   - Custo necessário para reproduzir um bem idêntico, com a consideração dos
   insumos pertinentes, sem considerar eventual depreciação.
   
-## Cálculo do Custo Unitário de Construção (NBR 14.653-2)
+- Ou seja, o custo de reprodução de uma benfeitoria é o custo de reproduzir o 
+bem **no estado de novo**.
+  
+## Cálculo do CUC
 
-- $$C = \left( \text{CUB} + \frac{\text{OE} + \text{OI} + (\text{OF}_e - \text{OF}_d)}{S} \right )(1+A)(1+F)(1+L)$$
+- O Custo Unitário de Construção (CUC), segundo a NBR 14.653-2 [@NBR1465302, 20-21]:
 
-  - $C$ é o custo unitário de construção por $m^2$ de área equivalente
-  - $\text{CUB}$ é o custo unitário básico
-  - $\text{OE}$ é o orçamento de elevadores
-  - $\text{OI}$ é o orçamento de instalações especiais
-  - $\text{OF}_e$ é o orçamento de fundações especiais
-  - $\text{OF}_d$ é o orçamento das fundações diretas
-  - $A$ é a taxa de administração da obra
-  - $F$ é o percentual relativo às despesas financeiras
-  - $L$ é o percentual correspondente ao lucro ou remuneração da construtora
+  - $$C = \left( \text{CUB} + \frac{\text{OE} + \text{OI} + (\text{OF}_e - \text{OF}_d)}{S} \right )(1+A)(1+F)(1+L)$$ {#eq-CUC}
+    - $C$ é o custo unitário de construção por $m^2$ de área equivalente
+    - $\text{CUB}$ é o custo unitário básico
+    - $\text{OE}$ é o orçamento de elevadores
+    - $\text{OI}$ é o orçamento de instalações especiais
+    - $\text{OF}_e$ é o orçamento de fundações especiais
+    - $\text{OF}_d$ é o orçamento das fundações diretas
+    - $A$ é a taxa de administração da obra
+    - $F$ é o percentual relativo às despesas financeiras
+    - $L$ é o percentual correspondente ao lucro ou remuneração da construtora
+    
+## Cálculo do Custo de Reprodução
+
+- O cálculo do custo de reprodução é feito através da multiplicação do custo
+unitário de construção, obtido pela @eq-CUC, pela área equivalente, obtida
+através da @eq-AreaEquivalente:
+  - $$C_{reprodução} = C \cdot S$$ {#eq-Reproducao}
+  
+- Deve-se notar que, seguindo o procedimento da @NBR1465302, os Benefícios e 
+Despesas Indiretas (BDI) estão embutidos no cálculo do CUC, através da 
+multiplicação dos termos $(1+A)$, $(1+F)$ e $(1+L)$
+  - É controverso se a remuneração do construtor já não estaria embutida na
+  taxa de administração da obra.
+  - Seria mais preciso definir $L$ como uma taxa de remuneração do 
+  **incorporador**, e não do construtor
+  - Faltam Projetos, Impostos e Taxas!
+
+
 
 ## Conceito de Custo de Reedição de benfeitoria
 
@@ -230,8 +278,17 @@ bem
 serviços necessários para levar o bem, do estado que se encontra, ao estado de
 novo (Grau III do Método da Quantificação do Custo)
 
-- A segunda opção, mais frequente, é o cálculo da depreciação através de método
-consagrado (Ross-Heideck, por exemplo)
+- NBR 14.653-2 [@NBR1465302, 21]:
+  - > O cálculo da depreciação física pode ser realizado de forma analítica – por 
+meio de orçamento necessário à recomposição do imóvel na condição de novo – ou 
+por meio da aplicação de coeficiente de depreciação, que leve em conta a idade e
+o estado de conservação. Esse coeficiente deve ser aplicado sobre o valor 
+depreciável.
+
+- A segunda opção, a aplicação de um coeficiente de depreciação calculado por um
+método consagrado, é a mais utilizada na prática.
+
+## Depreciação: métodos consagrados
 
 - Para a escolha do método de depreciação deve ser levada em conta a finalidade
 da avaliação
@@ -240,8 +297,6 @@ da avaliação
   - Se a finalidade for alienação, garantia ou desapropriação, o mais adequado,
   em geral, é o Método de Ross-Heideck, quando é possível determinar o estado
   de conservação
-
-## Depreciação: métodos consagrados
 
 - Para aplicação da depreciação:
   - Determina-se a vida útil, valor residual e valor depreciável, em função da

@@ -162,7 +162,7 @@ Luiz Droubi
     </div>
 </div>
 
-  <p class="date">7 de dezembro de 2025</p>
+  <p class="date">8 de dezembro de 2025</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Índice</h2>
@@ -186,7 +186,7 @@ Luiz Droubi
 <ul>
 <li class="fragment">A composição do valor total do imóvel avaliando (<span class="math inline">\(V_i\)</span>) pode ser obtida através da conjugação de métodos, a partir do valor do terreno (<span class="math inline">\(V_t\)</span>), considerados o custo de reprodução das benfeitorias devidamente depreciado (<span class="math inline">\(C_b\)</span>) e o fator de comercialização (<span class="math inline">\(\text{FC}\)</span>), ou seja:
 <ul>
-<li class="fragment"><span class="math display">\[V_i = (V_t + C_b)\cdot \text{FC}\]</span></li>
+<li class="fragment"><span id="eq-Evolutivo"><span class="math display">\[V_i = (V_t + C_b)\cdot \text{FC} \qquad(1)\]</span></span></li>
 </ul></li>
 </ul></li>
 <li class="fragment">Na NBR 14.653-01 <span class="citation" data-cites="NBR1465301">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2019, 14</a>)</span>:
@@ -286,15 +286,22 @@ Luiz Droubi
 <section id="orçamento-analítico-ou-sintético" class="slide level2">
 <h2>Orçamento Analítico ou Sintético</h2>
 <ul>
-<li class="fragment">Para elaboração de orçamento analítico ou sintético para fins de avaliação, é necessário orçar toda a obra, usualmente em função de composições e preços de insumos disponíveis em bases públicas ou privadas, como SINAPI, SICRO (DNIT), ORSE, TCPO, etc.</li>
+<li class="fragment"><p>Para elaboração de orçamento analítico ou sintético para fins de avaliação, é necessário orçar toda a obra, usualmente em função de composições e preços de insumos disponíveis em bases públicas ou privadas, como SINAPI, SICRO (DNIT), ORSE, TCPO, etc.</p></li>
+<li class="fragment"><p>Para avaliação dos custos detalhados, a NBR 14.653-2 <span class="citation" data-cites="NBR1465302">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2011, 21</a>)</span> recomenda:</p>
+<ul>
+<li class="fragment">Vistoria: a vistoria detalhada da benfeitoria tem como objetivo examinar as especificações dos materiais aplicados, o estado de conservação e a idade estimada</li>
+<li class="fragment">Levantamento de quantitativos: Nesta estapa são levantados todos os quantitativos de materiais e serviços aplicados na obra.</li>
+<li class="fragment">Pesquisa de custos: de acordo com as especificações dos materiais e serviços utilizados para a execução da benfeitoria, coletam-se os seus respectivos custos em fontes de consulta especializados.</li>
+<li class="fragment">Preenchimento da planilha orçamentária: O preenchimento da planilha deve ser de acordo com o modelo sugerido na ABNT NBR 12721, onde são discriminados todos os serviços, indicando-se a unidade de medida, a quantidade, o custo unitário, o custo total e a fonte de consulta.</li>
+</ul></li>
 </ul>
 </section>
 <section id="orçamento-paramétrico" class="slide level2">
 <h2>Orçamento paramétrico</h2>
 <ul>
-<li class="fragment"><p>Trata-se de uma estimativa de custo, baseado na composição da área construída.</p></li>
-<li class="fragment"><p>É muito mais comum a sua utilização na Engenharia de Avaliações</p></li>
-<li class="fragment"><p>Área equivalente:</p>
+<li class="fragment"><p>Trata-se de uma estimativa de custo, baseado na composição da área construída, de muito comum utilização na Engenharia de Avaliações;</p></li>
+<li class="fragment"><p>Trata-se de aplicar um custo unitário de construção a uma área equivalente de construção, que é computada baseada no padrão construtivo de cada tipo de área;</p></li>
+<li class="fragment"><p>A definição de Área equivalente, segundo a NBR 12721 <span class="citation" data-cites="NBR12721">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2006, 8</a>)</span>:</p>
 <ul>
 <li class="fragment">“área virtual cujo custo de construção é equivalente ao custo da respectiva área real, utilizada quando este custo é diferente do custo unitário básico da construção, adotado como referência. Pode ser, conforme o caso, maior ou menor que a área real correspondente.”</li>
 </ul></li>
@@ -302,9 +309,24 @@ Luiz Droubi
 </section>
 <section id="área-equivalente" class="slide level2">
 <h2>Área equivalente</h2>
+<ul>
+<li class="fragment">Na NBR 14.653-2 <span class="citation" data-cites="NBR1465302">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2011, 20</a>)</span>:
+<ul>
+<li class="fragment"><span id="eq-AreaEquivalente"><span class="math display">\[S = A_p + \sum_{i=1}^n A_{qi} P_i \qquad(2)\]</span></span>
+<ul>
+<li class="fragment"><span class="math inline">\(S\)</span> é a área equivalente de construção;</li>
+<li class="fragment"><span class="math inline">\(A_p\)</span> é a área construída padrão;</li>
+<li class="fragment"><span class="math inline">\(A_{qi}\)</span> é a área construída de padrão diferente;</li>
+<li class="fragment"><span class="math inline">\(P_i\)</span> é o percentual correspondente à razão entre o custo estimado da área padrão diferente e a área padrão, de acordo com os limites estabelecidos na ABNT NBR 12721 <span class="citation" data-cites="NBR12721">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2006</a>)</span>.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="área-equivalente-1" class="slide level2">
+<h2>Área equivalente</h2>
 
-<img data-src="img/Coeficientes_NBR_12721.png" class="r-stretch"></section>
-<section id="área-equivalente-1" class="slide level2 smaller">
+<img data-src="img/Coeficientes_NBR_12721.png" class="r-stretch quarto-figure-center"><p class="caption">Fonte: <span class="citation" data-cites="NBR12721">ABNT (<a href="#/referências" role="doc-biblioref" onclick="">2006</a>)</span>, 8-9</p></section>
+<section id="área-equivalente-2" class="slide level2 smaller">
 <h2>Área equivalente</h2>
 <table class="caption-top">
 <thead>
@@ -385,16 +407,19 @@ Luiz Droubi
 <section id="conceito-de-custo-de-reprodução-de-benfeitoria-1" class="slide level2">
 <h2>Conceito de Custo de Reprodução de benfeitoria</h2>
 <ul>
-<li class="fragment">Segundo a <span class="citation" data-cites="NBR1465301">ABNT (<a href="#/referências" role="doc-biblioref" onclick="">2019, 3</a>)</span>, o custo de reprodução é:
+<li class="fragment">Segundo a NBR 14.653-1 <span class="citation" data-cites="NBR1465301">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2019, 3</a>)</span>, o custo de reprodução é:
 <ul>
 <li class="fragment">Custo necessário para reproduzir um bem idêntico, com a consideração dos insumos pertinentes, sem considerar eventual depreciação.</li>
 </ul></li>
+<li class="fragment">Ou seja, o custo de reprodução de uma benfeitoria é o custo de reproduzir o bem <strong>no estado de novo</strong>.</li>
 </ul>
 </section>
-<section id="cálculo-do-custo-unitário-de-construção-nbr-14.653-2" class="slide level2">
-<h2>Cálculo do Custo Unitário de Construção (NBR 14.653-2)</h2>
+<section id="cálculo-do-cuc" class="slide level2">
+<h2>Cálculo do CUC</h2>
 <ul>
-<li class="fragment"><p><span class="math display">\[C = \left( \text{CUB} + \frac{\text{OE} + \text{OI} + (\text{OF}_e - \text{OF}_d)}{S} \right )(1+A)(1+F)(1+L)\]</span></p>
+<li class="fragment"><p>O Custo Unitário de Construção (CUC), segundo a NBR 14.653-2 <span class="citation" data-cites="NBR1465302">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2011, 20–21</a>)</span>:</p>
+<ul>
+<li class="fragment"><span id="eq-CUC"><span class="math display">\[C = \left( \text{CUB} + \frac{\text{OE} + \text{OI} + (\text{OF}_e - \text{OF}_d)}{S} \right )(1+A)(1+F)(1+L) \qquad(3)\]</span></span>
 <ul>
 <li class="fragment"><span class="math inline">\(C\)</span> é o custo unitário de construção por <span class="math inline">\(m^2\)</span> de área equivalente</li>
 <li class="fragment"><span class="math inline">\(\text{CUB}\)</span> é o custo unitário básico</li>
@@ -405,6 +430,22 @@ Luiz Droubi
 <li class="fragment"><span class="math inline">\(A\)</span> é a taxa de administração da obra</li>
 <li class="fragment"><span class="math inline">\(F\)</span> é o percentual relativo às despesas financeiras</li>
 <li class="fragment"><span class="math inline">\(L\)</span> é o percentual correspondente ao lucro ou remuneração da construtora</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="cálculo-do-custo-de-reprodução" class="slide level2">
+<h2>Cálculo do Custo de Reprodução</h2>
+<ul>
+<li class="fragment">O cálculo do custo de reprodução é feito através da multiplicação do custo unitário de construção, obtido pela <a href="#/eq-CUC" class="quarto-xref">Equação&nbsp;3</a>, pela área equivalente, obtida através da <a href="#/eq-AreaEquivalente" class="quarto-xref">Equação&nbsp;2</a>:
+<ul>
+<li class="fragment"><span id="eq-Reproducao"><span class="math display">\[C_{reprodução} = C \cdot S \qquad(4)\]</span></span></li>
+</ul></li>
+<li class="fragment">Deve-se notar que, seguindo o procedimento da <span class="citation" data-cites="NBR1465302">ABNT (<a href="#/referências" role="doc-biblioref" onclick="">2011</a>)</span>, os Benefícios e Despesas Indiretas (BDI) estão embutidos no cálculo do CUC, através da multiplicação dos termos <span class="math inline">\((1+A)\)</span>, <span class="math inline">\((1+F)\)</span> e <span class="math inline">\((1+L)\)</span>
+<ul>
+<li class="fragment">É controverso se a remuneração do construtor já não estaria embutida na taxa de administração da obra.</li>
+<li class="fragment">Seria mais preciso definir <span class="math inline">\(L\)</span> como uma taxa de remuneração do <strong>incorporador</strong>, e não do construtor</li>
+<li class="fragment">Faltam Projetos, Impostos e Taxas!</li>
 </ul></li>
 </ul>
 </section>
@@ -438,17 +479,23 @@ Luiz Droubi
 <h2>Depreciação</h2>
 <ul>
 <li class="fragment"><p>A depreciação pode ser computada através do levantamento dos custos dos serviços necessários para levar o bem, do estado que se encontra, ao estado de novo (Grau III do Método da Quantificação do Custo)</p></li>
-<li class="fragment"><p>A segunda opção, mais frequente, é o cálculo da depreciação através de método consagrado (Ross-Heideck, por exemplo)</p></li>
-<li class="fragment"><p>Para a escolha do método de depreciação deve ser levada em conta a finalidade da avaliação</p>
+<li class="fragment"><p>NBR 14.653-2 <span class="citation" data-cites="NBR1465302">(<a href="#/referências" role="doc-biblioref" onclick="">ABNT 2011, 21</a>)</span>:</p>
 <ul>
-<li class="fragment">Se a avaliação tiver fins contábeis, pode ser mais adequado considerar um método de depreciação acelerada</li>
-<li class="fragment">Se a finalidade for alienação, garantia ou desapropriação, o mais adequado, em geral, é o Método de Ross-Heideck, quando é possível determinar o estado de conservação</li>
+<li class="fragment"><blockquote>
+<p>O cálculo da depreciação física pode ser realizado de forma analítica – por meio de orçamento necessário à recomposição do imóvel na condição de novo – ou por meio da aplicação de coeficiente de depreciação, que leve em conta a idade e o estado de conservação. Esse coeficiente deve ser aplicado sobre o valor depreciável.</p>
+</blockquote></li>
 </ul></li>
+<li class="fragment"><p>A segunda opção, a aplicação de um coeficiente de depreciação calculado por um método consagrado, é a mais utilizada na prática.</p></li>
 </ul>
 </section>
 <section id="depreciação-métodos-consagrados" class="slide level2">
 <h2>Depreciação: métodos consagrados</h2>
 <ul>
+<li class="fragment">Para a escolha do método de depreciação deve ser levada em conta a finalidade da avaliação
+<ul>
+<li class="fragment">Se a avaliação tiver fins contábeis, pode ser mais adequado considerar um método de depreciação acelerada</li>
+<li class="fragment">Se a finalidade for alienação, garantia ou desapropriação, o mais adequado, em geral, é o Método de Ross-Heideck, quando é possível determinar o estado de conservação</li>
+</ul></li>
 <li class="fragment">Para aplicação da depreciação:
 <ul>
 <li class="fragment">Determina-se a vida útil, valor residual e valor depreciável, em função da tipologia e do objetivo da avaliação;</li>
@@ -597,8 +644,11 @@ Luiz Droubi
 <h2>Referências</h2>
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-NBR12721" class="csl-entry" role="listitem">
+ABNT. 2006. <em><span>NBR</span> 12721: Avaliação de custos unitários de construção para incorporação imobiliára e outras disposições para condomínios edilícios - Procedimento</em>. Rio de Janeiro: Associacao Brasileira de Normas Tecnicas.
+</div>
 <div id="ref-NBR1465302" class="csl-entry" role="listitem">
-ABNT. 2011. <em><span>NBR</span> 14653-2: Avaliacao de Bens – Parte 2: Imoveis Urbanos</em>. Rio de Janeiro: Associacao Brasileira de Normas Tecnicas.
+———. 2011. <em><span>NBR</span> 14653-2: Avaliacao de Bens – Parte 2: Imoveis Urbanos</em>. Rio de Janeiro: Associacao Brasileira de Normas Tecnicas.
 </div>
 <div id="ref-NBR1465301" class="csl-entry" role="listitem">
 ———. 2019. <em><span>NBR</span> 14653-1: Avaliacao de Bens – Parte 1: Procedimentos Gerais</em>. Rio de Janeiro: Associacao Brasileira de Normas Tecnicas.
