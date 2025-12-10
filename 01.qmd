@@ -44,7 +44,7 @@ library(ggpmisc)
 
 ## Introdução
 
-- Na NBR 14.653-01 [@NBR1465302, p. 19]:
+- Na NBR 14.653-02 [@NBR1465302, p. 19]:
   - A composição do valor total do imóvel avaliando ($V_i$) pode ser obtida 
   através da conjugação de métodos, a partir do valor do terreno ($V_t$), 
   considerados o custo de reprodução das benfeitorias devidamente depreciado
@@ -78,7 +78,7 @@ library(ggpmisc)
 
 ## Conceito de Custo de Reprodução de benfeitoria
 
-- Segundo a @NBR1465301 [p. 3], o custo de reprodução é:
+- Segundo a NBR 14.653-01 [@NBR1465301, p. 3], o custo de reprodução é:
   - Custo necessário para reproduzir um bem idêntico, com a consideração dos
   insumos pertinentes, sem considerar eventual depreciação.
 
@@ -198,7 +198,7 @@ despesas indiretas (BDI).
   
 ## Conceito de Custo de Reprodução de benfeitoria
 
-- Segundo a NBR 14.653-1 [@NBR1465301, p. 3], o custo de reprodução é:
+- Segundo a NBR 14.653-01 [@NBR1465301, p. 3], o custo de reprodução é:
   - Custo necessário para reproduzir um bem idêntico, com a consideração dos
   insumos pertinentes, sem considerar eventual depreciação.
   
@@ -207,7 +207,7 @@ bem **no estado de novo**.
   
 ## Cálculo do CUC
 
-- O Custo Unitário de Construção (CUC), segundo a NBR 14.653-2 [@NBR1465302, 20-21]:
+- O Custo Unitário de Construção (CUC), segundo a NBR 14.653-02 [@NBR1465302, 20-21]:
 
   - $$C = \left( \text{CUB} + \frac{\text{OE} + \text{OI} + (\text{OF}_e - \text{OF}_d)}{S} \right )(1+A)(1+F)(1+L)$$ {#eq-CUC}
     - $C$ é o custo unitário de construção por $m^2$ de área equivalente
@@ -227,9 +227,9 @@ unitário de construção, obtido pela @eq-CUC, pela área equivalente, obtida
 através da @eq-AreaEquivalente:
   - $$C_{reprodução} = C \cdot S$$ {#eq-Reproducao}
   
-- Deve-se notar que, seguindo o procedimento da @NBR1465302, os Benefícios e 
-Despesas Indiretas (BDI) estão embutidos no cálculo do CUC, através da 
-multiplicação dos termos $(1+A)$, $(1+F)$ e $(1+L)$
+- Deve-se notar que, seguindo o procedimento da NBR 14.653-02 [@NBR1465302], os 
+Benefícios e Despesas Indiretas (BDI) estão embutidos no cálculo do CUC, através
+da multiplicação dos termos $(1+A)$, $(1+F)$ e $(1+L)$
   - É controverso se a remuneração do construtor já não estaria embutida na
   taxa de administração da obra.
   - Seria mais preciso definir $L$ como uma taxa de remuneração do 
@@ -246,11 +246,41 @@ pelo SINDUSCON para o mês de referência é de R$ 2.540,00 $/m^2$
 
 ## Conceito de Custo de Reedição de benfeitoria
 
-- Segundo a @NBR1465301 [p. 3], o custo de **reedição** de uma benfeitoria é:
+- Segundo a a NBR 14653-01 [@NBR1465301, p. 3], o custo de **reedição** de uma
+benfeitoria é:
   - custo de reprodução, **descontada a depreciação do bem**, tendo em vista o 
   estado em que se encontra
   
 # Depreciação
+
+## Depreciação: conceitos gerais
+
+- Depreciação [@ibapesp07, p. 311]:
+  - é a diminuição do valor econômico ou preço de um bem, por causa do que lhe 
+  modificou o estado ou qualidade
+  - pode ser de ordem física ou funcional
+
+- Segundo a NBR 14653-01 [@NBR1465301, p. 4], depreciação é a:
+  - >perda de valor de um bem, devido a modificações em seu estado ou qualidade,
+  ocasionadas pelo descrito em 3.1.14.1 a 3.1.14.4
+    - 3.1.14.1. decrepitude
+    - 3.1.14.2. deterioração
+    - 3.1.14.3. mutilação
+    - 3.1.14.4. obsoletismo
+
+## Depreciação: conceitos gerais
+
+- Classes de depreciação:
+  - **decrepitude**:
+    - desgaste de suas partes constitutivas, em consequência de seu 
+      envelhecimento natural, em condições normais de utilização e manutenção
+  - **deterioração**:
+      - desgaste de seus componentes em razão de uso ou manutenção inadequados
+  - **mutilação**:
+    - retirada de sistemas ou componentes originalmente existentes
+  - **obsoletismo**:
+    - superação tecnológica ou funcional
+
 
 ## Depreciação: conceitos gerais
 
@@ -316,7 +346,7 @@ da avaliação
 
 ## Fator de Comercialização
 
-- Segundo a @NBR1465301, o fator de comercialização é:
+- Segundo a NBR 14.653-01 [@NBR1465301], o fator de comercialização é:
   - razão entre o valor de mercado de um bem e o seu custo total, que pode ser 
   igual, maior ou menor do que 1.
 

@@ -146,19 +146,16 @@ depreciação acelerada:
   
 ## Método da Linha Reta
 
-- É o método da depreciação linear! $K_d$ é calculado através da @eq-LinhaReta:
-  - $$K_d = P_R + PD \cdot \frac{VU-I_E}{VU}$$ {#eq-LinhaReta}
-    - $P_R$: Parcela Residual (%)
-    - $P_D$: Parcela Depreciável (%)
-    - $I_E$: Idade da Edificação
-    - $VU$: Vida útil
+- É o método da depreciação linear!
+
+- Neste método a depreciação, igual em cada período, é calculada conforme a @eq-SL:
+  - $$D_{SL} = \frac{D_T}{VU} = \frac{V_0 - V_r}{VU}$$ {#eq-SL}
   
-- Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
-    - Aos 15 anos de idade: $K_d = 0,20 + 0,80\cdot [(60 - 15)/60] = 0,80$
-    - Aos 45 anos de idade: $K_d = 0,20 + 0,80\cdot [(60 - 45)/60] = 0,40$
-    - Aos 60 anos de idade: $K_d = 0,20$
-    - Taxa de depreciação: $1/60 \approx 1,67\% \text{ a.a.}$
-    
+- Exemplo: um equipamento tem custo de aquisição $V_0 = 800.000,00$, valor
+residual de 10% e vida útil de 5 anos. Calcular a depreciação anual pelo método
+da linha reta:
+  - $D_{SL} = \frac{800.000,00 - 80.000,00}{5} = \text{ R\$ } 144.000,00 \text{/ano}$
+  
 ## Método da Linha Reta
 
 | Período | %D    | *Write-off* | *Book-value* |
@@ -170,6 +167,81 @@ depreciação acelerada:
 | 4       | 20%   | 144.000,00  | 224.000,00   |
 | 5       | 20%   | 144.000,00  |  80.000,00   |
 Table: Vida útil de 5 anos e Valor Residual de 10%.
+
+## Método da Linha Reta
+
+- $K_d$ é calculado através da @eq-LinhaReta:
+  - $$K_d = P_R + P_D \cdot \frac{VU-I_E}{VU}$$ {#eq-LinhaReta}
+    - $P_R$: Parcela Residual (%)
+    - $P_D$: Parcela Depreciável (%)
+    - $I_E$: Idade da Edificação
+    - $VU$: Vida útil
+  
+- Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+    - Aos 15 anos de idade: $K_d = 0,20 + 0,80\cdot [(60 - 15)/60] = 0,80$
+    - Aos 45 anos de idade: $K_d = 0,20 + 0,80\cdot [(60 - 45)/60] = 0,40$
+    - Aos 60 anos de idade: $K_d = 0,20$
+    - Taxa de depreciação: $1/60 \approx 1,67\% \text{ a.a.}$
+
+## Método da Linha Reta Variante
+
+- Neste método é considerada uma taxa de depreciação ($\%D$) a cada 5 anos 
+[@ibapesp07, p. 315], conforme a @eq-LRVariante:
+  - $$D_{LRV} = \frac{I_E-5}{5} \%D$$ {#eq-LRVariante}
+  
+- Exemplo: um imóvel deprecia a uma taxa de 10% a cada 5 anos. Calcule ao valor 
+da depreciação para uma idade de 28 anos.
+  - $D_{LRV} = \frac{28-5}{5}\cdot 10\% = 4,6 \cdot 10\% = 0,46$
+  
+- O coeficiente de Depreciação é calculado conforme a @eq-Kd:
+  - $$K_d = 1 - D$$ {#eq-Kd}
+  - $K_d = 1-0,46 = 0,54$
+  
+## Método da Linha Reta Variante
+
+- Inconsistências:
+  - No primeiro período não desvaloriza nada
+  - Não atinge, necessariamente, o valor residual ao final da vida útil
+  
+. . . 
+
+| Período | %D    | *Write-off* | *Book-value* |
+|:--------|------:|------------:|-------------:|
+| 0       | -     | -           | 800.000,00   |
+| 5       | 10%   | 0           | 800.000,00   |
+| 10      | 10%   |  80.000,00  | 720.000,00   |
+| 30      | 10%   |  80.000,00  | 400.000,00   |
+| 45      | 10%   |  80.000,00  | 160.000,00   |
+| 60      | 10%   |  80.000,00  | -80.000,00   |
+Table: Vida útil de 60 anos e Valor Residual de 20%.
+
+## Método da Linha Reta Variante
+
+- Seria mais adequado:
+  - $$D_{LRV} = \frac{I_E}{5} \%D$$ {#eq-LRVariante2}
+  
+- Exemplo: um imóvel deprecia a uma taxa de 10% a cada 5 anos. Calcule ao valor 
+da depreciação para uma idade de 28 anos.
+  - $D_{LRV} = \frac{28}{5}\cdot 10\% = 5,6 \cdot 10\% = 0,56$
+  
+- O coeficiente de Depreciação é calculado conforme a @eq-Kd:
+  - $$K_d = P_R + P_D(1 - D)$$ {#eq-Kd2}
+  - $K_d = 0,20 + 0,80( 1 - 0,56) = 0,55$
+  
+
+## Método da Linha Reta Variante
+
+| Período | %D    | *Write-off* | *Book-value* |
+|:--------|------:|------------:|-------------:|
+| 0       | -     | -           | 800.000,00   |
+| 5       | 10%   |  64.000,00  | 736.000,00   |
+| 10      | 10%   |  64.000,00  | 672.000,00   |
+| 15      | 10%   |  64.000,00  | 608.000,00   |
+| 30      | 10%   |  64.000,00  | 416.000,00   |
+| 45      | 10%   |  64.000,00  | 224.000,00   |
+| 50      | 10%   |  64.000,00  | 160.000,00   |
+| 60      | 0%    |  -          | 160.000,00   |
+Table: Vida útil de 60 anos e Valor Residual de 20%.
 
 ## Método do Valor Decrescente
 
@@ -377,7 +449,48 @@ de reparos importantes:
   - 45 anos: $\alpha = 0,5(45/60 + 45^2/60^2) = 0,656$, $c = 0,526$
     - $K_d = 1 - D_{R-H} = 1-[0,656 + (1-0,656)\cdot0,526]\cdot 0,80 \approx 0,33$ 
 
+## Método do Fundo de Amortização
+
+- Este método fpoi concebido de tal maneira que, depositados os valores das
+parcelas de depreciação de um imóvel ou equipamento em um fundo ao longo da sua
+vida, ao final da vida útil do bem, o montante acumulado nesse fundo é utilizado
+para substituir o imóvel ou equipamento;
+
+- É uma variante do método da linha reta que leva em conta os juros da aplicação;
+
+- O valor das amortizações periódicas são calculados através da @eq-FR:
+  - $$A = \frac{D_T\cdot i}{(1+i)^n - 1}$$ {#eq-FR}
+    - $D_T$ é a depreciação total
+    - $i$ é a taxa de juros
+    - $n$ é a vida útil do bem
   
+## Método do Fundo de Amortização
+
+- Exemplo:
+  - Imóvel com vida útil de 60 anos e valor residual de 20%, com 
+  $V_0 = 800.000,00$, com valores aplicados em um fundo com rendimento de 5% a.a.:
+    - Amortização anual: 
+      $$A = \frac{(800.000-160.000)\cdot 0,05}{(1+0,05)^{60} - 1} = \text{ R\$ } 1.810,04$$
+      
+## Método do Fundo de Amortização
+
+- Um equipamento tem custo de aquisição de R$ 800.000,00, vida útil de 5 anos e 
+valor residual de 10%. Calcule o valor das amortizações considerando $i = 12\%\text{ a.a.}$
+
+. . . 
+
+| Período | Depósito     | Juros ganhos | D          | D acum.    | *Book-value* |
+|:--------|-------------:|-------------:|-----------:|-----------:|-------------:|
+| 0       | -            |  -           |  -         | -          | 800.000,00   |
+| 1       | 113.335,01   |  -           | 113.335,00 | 113.335,00 | 686.664,99   |
+| 2       | 113.335,01   | 13.600,20    | 126.935,27 | 240.270,21 | 559.729,79   |
+| 3       | 113.335,01   | 28.832,43    | 142.167,44 | 382.437,65 | 417.562,35   |
+| 4       | 113.335,01   | 45.892,52    | 159.227,53 | 541.665,17 | 258.334,83   |
+| 5       | 113.335,01   | 64.999,82    | 178.334,83 | 720.000,00 |  80.000,00   |
+Table: Vida útil de 5 anos e Valor Residual de 10%.
+
+- Comparar com as parcelas de R$ 144.000,00 obtidas pelo método da Linha Reta.
+
 ## Resumo
 
 ```{r}

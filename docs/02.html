@@ -162,7 +162,7 @@ Luiz Droubi
     </div>
 </div>
 
-  <p class="date">8 de dezembro de 2025</p>
+  <p class="date">10 de dezembro de 2025</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Índice</h2>
@@ -279,22 +279,14 @@ Luiz Droubi
 <section id="método-da-linha-reta" class="slide level2">
 <h2>Método da Linha Reta</h2>
 <ul>
-<li class="fragment">É o método da depreciação linear! <span class="math inline">\(K_d\)</span> é calculado através da <a href="#/eq-LinhaReta" class="quarto-xref">Equação&nbsp;1</a>:
+<li class="fragment"><p>É o método da depreciação linear!</p></li>
+<li class="fragment"><p>Neste método a depreciação, igual em cada período, é calculada conforme a <a href="#/eq-SL" class="quarto-xref">Equação&nbsp;1</a>:</p>
 <ul>
-<li class="fragment"><span id="eq-LinhaReta"><span class="math display">\[K_d = P_R + PD \cdot \frac{VU-I_E}{VU} \qquad(1)\]</span></span>
-<ul>
-<li class="fragment"><span class="math inline">\(P_R\)</span>: Parcela Residual (%)</li>
-<li class="fragment"><span class="math inline">\(P_D\)</span>: Parcela Depreciável (%)</li>
-<li class="fragment"><span class="math inline">\(I_E\)</span>: Idade da Edificação</li>
-<li class="fragment"><span class="math inline">\(VU\)</span>: Vida útil</li>
+<li class="fragment"><span id="eq-SL"><span class="math display">\[D_{SL} = \frac{D_T}{VU} = \frac{V_0 - V_r}{VU} \qquad(1)\]</span></span></li>
 </ul></li>
-</ul></li>
-<li class="fragment">Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+<li class="fragment"><p>Exemplo: um equipamento tem custo de aquisição <span class="math inline">\(V_0 = 800.000,00\)</span>, valor residual de 10% e vida útil de 5 anos. Calcular a depreciação anual pelo método da linha reta:</p>
 <ul>
-<li class="fragment">Aos 15 anos de idade: <span class="math inline">\(K_d = 0,20 + 0,80\cdot [(60 - 15)/60] = 0,80\)</span></li>
-<li class="fragment">Aos 45 anos de idade: <span class="math inline">\(K_d = 0,20 + 0,80\cdot [(60 - 45)/60] = 0,40\)</span></li>
-<li class="fragment">Aos 60 anos de idade: <span class="math inline">\(K_d = 0,20\)</span></li>
-<li class="fragment">Taxa de depreciação: <span class="math inline">\(1/60 \approx 1,67\% \text{ a.a.}\)</span></li>
+<li class="fragment"><span class="math inline">\(D_{SL} = \frac{800.000,00 - 80.000,00}{5} = \text{ R\$ } 144.000,00 \text{/ano}\)</span></li>
 </ul></li>
 </ul>
 </section>
@@ -350,12 +342,195 @@ Luiz Droubi
 </tbody>
 </table>
 </section>
+<section id="método-da-linha-reta-2" class="slide level2">
+<h2>Método da Linha Reta</h2>
+<ul>
+<li class="fragment"><span class="math inline">\(K_d\)</span> é calculado através da <a href="#/eq-LinhaReta" class="quarto-xref">Equação&nbsp;2</a>:
+<ul>
+<li class="fragment"><span id="eq-LinhaReta"><span class="math display">\[K_d = P_R + P_D \cdot \frac{VU-I_E}{VU} \qquad(2)\]</span></span>
+<ul>
+<li class="fragment"><span class="math inline">\(P_R\)</span>: Parcela Residual (%)</li>
+<li class="fragment"><span class="math inline">\(P_D\)</span>: Parcela Depreciável (%)</li>
+<li class="fragment"><span class="math inline">\(I_E\)</span>: Idade da Edificação</li>
+<li class="fragment"><span class="math inline">\(VU\)</span>: Vida útil</li>
+</ul></li>
+</ul></li>
+<li class="fragment">Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:
+<ul>
+<li class="fragment">Aos 15 anos de idade: <span class="math inline">\(K_d = 0,20 + 0,80\cdot [(60 - 15)/60] = 0,80\)</span></li>
+<li class="fragment">Aos 45 anos de idade: <span class="math inline">\(K_d = 0,20 + 0,80\cdot [(60 - 45)/60] = 0,40\)</span></li>
+<li class="fragment">Aos 60 anos de idade: <span class="math inline">\(K_d = 0,20\)</span></li>
+<li class="fragment">Taxa de depreciação: <span class="math inline">\(1/60 \approx 1,67\% \text{ a.a.}\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-da-linha-reta-variante" class="slide level2">
+<h2>Método da Linha Reta Variante</h2>
+<ul>
+<li class="fragment">Neste método é considerada uma taxa de depreciação (<span class="math inline">\(\%D\)</span>) a cada 5 anos <span class="citation" data-cites="ibapesp07">(<a href="#/referências" role="doc-biblioref" onclick="">Lopes e Alonso 2014, 315</a>)</span>, conforme a <a href="#/eq-LRVariante" class="quarto-xref">Equação&nbsp;3</a>:
+<ul>
+<li class="fragment"><span id="eq-LRVariante"><span class="math display">\[D_{LRV} = \frac{I_E-5}{5} \%D \qquad(3)\]</span></span></li>
+</ul></li>
+<li class="fragment">Exemplo: um imóvel deprecia a uma taxa de 10% a cada 5 anos. Calcule ao valor da depreciação para uma idade de 28 anos.
+<ul>
+<li class="fragment"><span class="math inline">\(D_{LRV} = \frac{28-5}{5}\cdot 10\% = 4,6 \cdot 10\% = 0,46\)</span></li>
+</ul></li>
+<li class="fragment">O coeficiente de Depreciação é calculado conforme a <a href="#/eq-Kd" class="quarto-xref">Equação&nbsp;4</a>:
+<ul>
+<li class="fragment"><span id="eq-Kd"><span class="math display">\[K_d = 1 - D \qquad(4)\]</span></span></li>
+<li class="fragment"><span class="math inline">\(K_d = 1-0,46 = 0,54\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-da-linha-reta-variante-1" class="slide level2">
+<h2>Método da Linha Reta Variante</h2>
+<ul>
+<li class="fragment">Inconsistências:
+<ul>
+<li class="fragment">No primeiro período não desvaloriza nada</li>
+<li class="fragment">Não atinge, necessariamente, o valor residual ao final da vida útil</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<table class="caption-top">
+<caption>Vida útil de 60 anos e Valor Residual de 20%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">80.000,00</td>
+<td style="text-align: right;">720.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">80.000,00</td>
+<td style="text-align: right;">400.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">45</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">80.000,00</td>
+<td style="text-align: right;">160.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">60</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">80.000,00</td>
+<td style="text-align: right;">-80.000,00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="método-da-linha-reta-variante-2" class="slide level2">
+<h2>Método da Linha Reta Variante</h2>
+<ul>
+<li class="fragment">Seria mais adequado:
+<ul>
+<li class="fragment"><span id="eq-LRVariante2"><span class="math display">\[D_{LRV} = \frac{I_E}{5} \%D \qquad(5)\]</span></span></li>
+</ul></li>
+<li class="fragment">Exemplo: um imóvel deprecia a uma taxa de 10% a cada 5 anos. Calcule ao valor da depreciação para uma idade de 28 anos.
+<ul>
+<li class="fragment"><span class="math inline">\(D_{LRV} = \frac{28}{5}\cdot 10\% = 5,6 \cdot 10\% = 0,56\)</span></li>
+</ul></li>
+<li class="fragment">O coeficiente de Depreciação é calculado conforme a <a href="#/eq-Kd" class="quarto-xref">Equação&nbsp;4</a>:
+<ul>
+<li class="fragment"><span id="eq-Kd2"><span class="math display">\[K_d = P_R + P_D(1 - D) \qquad(6)\]</span></span></li>
+<li class="fragment"><span class="math inline">\(K_d = 0,20 + 0,80( 1 - 0,56) = 0,55\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-da-linha-reta-variante-3" class="slide level2">
+<h2>Método da Linha Reta Variante</h2>
+<table class="caption-top">
+<caption>Vida útil de 60 anos e Valor Residual de 20%.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">%D</th>
+<th style="text-align: right;"><em>Write-off</em></th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">64.000,00</td>
+<td style="text-align: right;">736.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">64.000,00</td>
+<td style="text-align: right;">672.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">64.000,00</td>
+<td style="text-align: right;">608.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">30</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">64.000,00</td>
+<td style="text-align: right;">416.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">45</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">64.000,00</td>
+<td style="text-align: right;">224.000,00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">64.000,00</td>
+<td style="text-align: right;">160.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">60</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">160.000,00</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="método-do-valor-decrescente" class="slide level2">
 <h2>Método do Valor Decrescente</h2>
 <ul>
 <li class="fragment"><p>Também é usual efetuar a depreciação pelo método do valor descrescente, que deprecia o imóvel a uma taxa constante:</p>
 <ul>
-<li class="fragment"><span id="eq-DBM"><span class="math display">\[K_d= (1-r)^{I_A} \qquad(2)\]</span></span>
+<li class="fragment"><span id="eq-DBM"><span class="math display">\[K_d= (1-r)^{I_A} \qquad(7)\]</span></span>
 <ul>
 <li class="fragment"><span class="math inline">\(r\)</span> é a razão da Depreciação (<span class="math inline">\(r = 1/V_u\)</span>)</li>
 <li class="fragment"><span class="math inline">\(I_A\)</span> é a idade aparente</li>
@@ -437,7 +612,7 @@ Luiz Droubi
 <ul>
 <li class="fragment"><p>Segundo <span class="citation" data-cites="fleischer">Fleischer (<a href="#/referências" role="doc-biblioref" onclick="">1973, 80</a>)</span>:</p>
 <ul>
-<li class="fragment"><span id="eq-Fleischer"><span class="math display">\[r = 1 - \left( \frac{V_r}{V_0} \right)^{(1/V_u)} \qquad(3)\]</span></span></li>
+<li class="fragment"><span id="eq-Fleischer"><span class="math display">\[r = 1 - \left( \frac{V_r}{V_0} \right)^{(1/V_u)} \qquad(8)\]</span></span></li>
 </ul></li>
 <li class="fragment"><p>Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:</p>
 <ul>
@@ -560,7 +735,7 @@ Luiz Droubi
 <section id="método-do-double-declining" class="slide level2">
 <h2>Método do <em>Double Declining</em></h2>
 <ul>
-<li class="fragment">É um método de depreciação acelerada que deprecia o bem com a <a href="#/eq-DBM" class="quarto-xref">Equação&nbsp;2</a>, como uma razão de depreciação que é dobro da taxa de depreciação linear:
+<li class="fragment">É um método de depreciação acelerada que deprecia o bem com a <a href="#/eq-DBM" class="quarto-xref">Equação&nbsp;7</a>, como uma razão de depreciação que é dobro da taxa de depreciação linear:
 <ul>
 <li class="fragment">Razão de depreciação (DDM): <span class="math inline">\(2\cdot 1/60 \approx 3,33\% \text{ a.a.}\)</span></li>
 </ul></li>
@@ -705,7 +880,7 @@ Luiz Droubi
 <h2>Método de Kuentzle</h2>
 <ul>
 <li class="fragment"><p>É um método de depreciação lenta, a princípio, que se acelera no final da vida útil do bem;</p></li>
-<li class="fragment"><p><span id="eq-Kuentzle"><span class="math display">\[Kd = \frac{V_u^2 - I_R^2}{V_u^2} \qquad(4)\]</span></span></p></li>
+<li class="fragment"><p><span id="eq-Kuentzle"><span class="math display">\[Kd = \frac{V_u^2 - I_R^2}{V_u^2} \qquad(9)\]</span></span></p></li>
 <li class="fragment"><p>Exemplo: Imóvel com vida útil de 60 anos e valor residual de 20%:</p>
 <ul>
 <li class="fragment">15 anos: <span class="math inline">\(K_d = 0,20 + 0,80 \cdot [(60^2-15^2)/60^2] = 0,95\)</span></li>
@@ -770,7 +945,7 @@ Luiz Droubi
 <h2>Método de Ross</h2>
 <ul>
 <li class="fragment"><p>É uma parábola com concavidade para baixo, que fica entre a parábola de Kuentzle e a reta da depreciação linear!</p></li>
-<li class="fragment"><p><span id="eq-Ross"><span class="math display">\[\alpha = \frac{1}{2} \left( \frac{I_R}{V_u} + \frac{I_R^2}{V_u^2} \right) \qquad(5)\]</span></span></p></li>
+<li class="fragment"><p><span id="eq-Ross"><span class="math display">\[\alpha = \frac{1}{2} \left( \frac{I_R}{V_u} + \frac{I_R^2}{V_u^2} \right) \qquad(10)\]</span></span></p></li>
 <li class="fragment"><p>Exemplo:</p>
 <ul>
 <li class="fragment">Imóvel com vida útil de 60 anos e valor residual de 20%:
@@ -853,7 +1028,7 @@ Luiz Droubi
 <ul>
 <li class="fragment"><p>É a combinação do Método de Ross, com o Método de Heideck:</p>
 <ul>
-<li class="fragment"><span id="eq-RossHeideck"><span class="math display">\[D_{R-H} = [\alpha + (1-\alpha)c]V_d \qquad(6)\]</span></span></li>
+<li class="fragment"><span id="eq-RossHeideck"><span class="math display">\[D_{R-H} = [\alpha + (1-\alpha)c]V_d \qquad(11)\]</span></span></li>
 <li class="fragment"><span class="math inline">\(\alpha\)</span> é a parcela da depreciação devido à idade, de Ross</li>
 <li class="fragment"><span class="math inline">\(c\)</span> é o coeficiente de Heidecke</li>
 <li class="fragment"><span class="math inline">\(V_d\)</span> é o valor depreciável</li>
@@ -870,6 +1045,116 @@ Luiz Droubi
 </ul></li>
 </ul></li>
 </ul>
+</section>
+<section id="método-do-fundo-de-amortização" class="slide level2">
+<h2>Método do Fundo de Amortização</h2>
+<ul>
+<li class="fragment"><p>Este método fpoi concebido de tal maneira que, depositados os valores das parcelas de depreciação de um imóvel ou equipamento em um fundo ao longo da sua vida, ao final da vida útil do bem, o montante acumulado nesse fundo é utilizado para substituir o imóvel ou equipamento;</p></li>
+<li class="fragment"><p>É uma variante do método da linha reta que leva em conta os juros da aplicação;</p></li>
+<li class="fragment"><p>O valor das amortizações periódicas são calculados através da <a href="#/eq-FR" class="quarto-xref">Equação&nbsp;12</a>:</p>
+<ul>
+<li class="fragment"><span id="eq-FR"><span class="math display">\[A = \frac{D_T\cdot i}{(1+i)^n - 1} \qquad(12)\]</span></span>
+<ul>
+<li class="fragment"><span class="math inline">\(D_T\)</span> é a depreciação total</li>
+<li class="fragment"><span class="math inline">\(i\)</span> é a taxa de juros</li>
+<li class="fragment"><span class="math inline">\(n\)</span> é a vida útil do bem</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-do-fundo-de-amortização-1" class="slide level2">
+<h2>Método do Fundo de Amortização</h2>
+<ul>
+<li class="fragment">Exemplo:
+<ul>
+<li class="fragment">Imóvel com vida útil de 60 anos e valor residual de 20%, com <span class="math inline">\(V_0 = 800.000,00\)</span>, com valores aplicados em um fundo com rendimento de 5% a.a.:
+<ul>
+<li class="fragment">Amortização anual: <span class="math display">\[A = \frac{(800.000-160.000)\cdot 0,05}{(1+0,05)^{60} - 1} = \text{ R\$ } 1.810,04\]</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="método-do-fundo-de-amortização-2" class="slide level2">
+<h2>Método do Fundo de Amortização</h2>
+<ul>
+<li class="fragment">Um equipamento tem custo de aquisição de R$ 800.000,00, vida útil de 5 anos e valor residual de 10%. Calcule o valor das amortizações considerando <span class="math inline">\(i = 12\%\text{ a.a.}\)</span></li>
+</ul>
+<div class="fragment">
+<table class="caption-top">
+<caption>Vida útil de 5 anos e Valor Residual de 10%.</caption>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">Depósito</th>
+<th style="text-align: right;">Juros ganhos</th>
+<th style="text-align: right;">D</th>
+<th style="text-align: right;">D acum.</th>
+<th style="text-align: right;"><em>Book-value</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">800.000,00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">113.335,01</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">113.335,00</td>
+<td style="text-align: right;">113.335,00</td>
+<td style="text-align: right;">686.664,99</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">113.335,01</td>
+<td style="text-align: right;">13.600,20</td>
+<td style="text-align: right;">126.935,27</td>
+<td style="text-align: right;">240.270,21</td>
+<td style="text-align: right;">559.729,79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">113.335,01</td>
+<td style="text-align: right;">28.832,43</td>
+<td style="text-align: right;">142.167,44</td>
+<td style="text-align: right;">382.437,65</td>
+<td style="text-align: right;">417.562,35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">113.335,01</td>
+<td style="text-align: right;">45.892,52</td>
+<td style="text-align: right;">159.227,53</td>
+<td style="text-align: right;">541.665,17</td>
+<td style="text-align: right;">258.334,83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">113.335,01</td>
+<td style="text-align: right;">64.999,82</td>
+<td style="text-align: right;">178.334,83</td>
+<td style="text-align: right;">720.000,00</td>
+<td style="text-align: right;">80.000,00</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">Comparar com as parcelas de R$ 144.000,00 obtidas pelo método da Linha Reta.</li>
+</ul>
+</div>
 </section>
 <section id="resumo" class="slide level2">
 <h2>Resumo</h2>
